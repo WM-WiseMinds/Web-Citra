@@ -28,7 +28,7 @@
         <!-- Page Heading -->
         <div class="flex flex-col flex-1 w-full">
             @if (isset($header))
-                <header class="z-10 py-4 bg-white shadow-md">
+                <header class="z-10 py-4 bg-emerald-600 shadow-md">
                     <div
                         class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
                         <div class="-me-2 flex items-center md:hidden">
@@ -118,16 +118,10 @@
     </div>
 
     @stack('modals')
+    @livewire('wire-elements-modal')
 
+    @wireUiScripts
     @livewireScripts
 </body>
-
-<script>
-    document.addEventListener('alpine:init', function() {
-        Alpine.store('navbar', {
-            open: false,
-        });
-    });
-</script>
 
 </html>

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,7 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-
         User::factory(50)->create();
 
         $user = User::factory()->create([
@@ -24,5 +22,4 @@ class UserSeeder extends Seeder
             'role_id' => 1,
         ]);
     }
-    
 }
