@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles_permissions', function (Blueprint $table) {
+        Schema::create('role_permissions', function (Blueprint $table) {
             // Kolom 'role_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'roles' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
             $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
 
