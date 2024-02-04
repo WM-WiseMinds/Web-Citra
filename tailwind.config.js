@@ -31,8 +31,8 @@ export default {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                "pg-primary": colors.gray,
-                brown: colors.brown,
+                "pg-primary": colors.stone,
+                orange: colors.orange,
             },
         },
     },
