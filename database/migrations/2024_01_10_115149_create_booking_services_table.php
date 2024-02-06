@@ -12,19 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         // Membuat tabel 'bookingservices' untuk menyimpan data pemesanan layanan
-        Schema::create('bookingservices', function (Blueprint $table) {
+        Schema::create('bookingservice', function (Blueprint $table) {
             // Kolom ID unik untuk setiap pemesanan
             $table->id(); 
             // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Kolom tanggal pemesanan
             $table->date('tanggal_booking'); 
-            // Kolom nama pelanggan dengan batasan 50 karakter
-            $table->string('nama', 50); 
-            // Kolom alamat pelanggan
-            $table->text('alamat'); 
-            // Kolom nomor telepon pelanggan dengan batasan 20 karakter
-            $table->string('no_hp', 20); 
             // Kolom jenis barang yang membutuhkan layanan
             $table->string('jenis_barang', 50); 
             // Kolom deskripsi kerusakan barang

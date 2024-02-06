@@ -37,4 +37,13 @@ Route::middleware([
     Route::get('/users', function () {
         return view('users');
     })->name('users');
+    Route::get('/bookingservice', function () {
+        return view('bookingservice');
+    })->name('bookingservice');
+    Route::get('/perbaikan', function () {
+        return view('perbaikan');
+    })->name('perbaikan');
+    Route::get('/transaksi', function () {
+        return view('transaksi');
+    })->name('transaksi');
 });

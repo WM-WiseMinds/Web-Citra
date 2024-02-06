@@ -12,19 +12,17 @@ return new class extends Migration
     public function up(): void
     {
     // Membuat tabel 'transaksis' untuk menyimpan data transaksi
-    Schema::create('transaksis', function (Blueprint $table) {
+    Schema::create('transaksi', function (Blueprint $table) {
         // Kolom ID unik untuk setiap transaksi
         $table->id(); 
         //
         $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-        // Kolom jenis barang dengan batasan 50 karakter
-        $table->string('jenis_barang', 50); 
         // Kolom biaya per item
-        $table->integer('biaya'); 
+        $table->integer('biaya', ); 
         // Kolom jumlah item yang dibeli
-        $table->integer('jumlah'); 
+        $table->integer('jumlah', ); 
         // Kolom total biaya transaksi
-        $table->integer('total_biaya'); 
+        $table->integer('total_biaya', ); 
         // Kolom timestamp otomatis untuk pembuatan dan pembaruan
         $table->timestamps(); 
     });

@@ -17,7 +17,6 @@ class Perbaikan extends Model
     protected $fillable = [
         'bookingservice_id', 
         'user_id',
-        'jenis_barang', 
         'kerusakan',
         'keterangan', 
         'persetujuan', 

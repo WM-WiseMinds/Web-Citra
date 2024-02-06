@@ -16,7 +16,6 @@ class Transaksi extends Model
     //untuk menyimpan data atribut tabel dari tabel transaksis
     protected $fillable = [
         'user_id',
-        'jenis_barang', 
         'biaya', 
         'jumlah',
         'total_biaya', 

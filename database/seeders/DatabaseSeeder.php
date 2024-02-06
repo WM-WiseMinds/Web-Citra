@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use function Symfony\Component\String\b;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,5 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call([RoleSeeder::class,]);
         $this->call([UserSeeder::class,]);
         $this->call([PermissionSeeder::class,]);
+        $this->call([RolePermissionSeeder::class,]);
+        $this->call([BookingServiceSeeder::class]);
+        $this->call([PerbaikanSeeder::class]);
     }
 }

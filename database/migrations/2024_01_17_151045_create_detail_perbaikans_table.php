@@ -16,16 +16,12 @@ return new class extends Migration
             // Kolom ID unik sebagai primary key untuk setiap detail perbaikan
             $table->id(); 
             // Kolom ID perbaikan yang terkait dengan tabel 'perbaikans' dengan aksi onDelete 'cascade'
-            $table->foreignId('perbaikan_id')->constrained('perbaikans')->onDelete('cascade');
-            // Kolom jenis barang dengan batasan 50 karakter
-            $table->string('jenis_barang', 50); 
-            // Kolom deskripsi kerusakan barang
-            $table->string('kerusakan'); 
-            // Kolom keterangan detail perbaikan
-            $table->string('keterangan'); 
-            // Kolom persetujuan detail perbaikan
-            $table->string('persetujuan');
-            // Kolom timestamp otomatis untuk pembuatan dan pembaruan
+            $table->foreignId('perbaikan_id')->constrained('perbaikan')->onDelete('cascade');
+            // Kolom deskripsi status barang
+            $table->string('status', 20);
+            // Kolom biaya barang
+            $table->integer('biaya');
+
             $table->timestamps(); 
             });
     }

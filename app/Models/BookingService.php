@@ -11,16 +11,16 @@ class BookingService extends Model
     use HasFactory;
 
     // Nama tabel yang sesuai dengan model
-    protected $table = 'booking_services'; 
+    protected $table = 'bookingservice'; 
     
     //untuk menyimpan data atribut tabel dari tabel booking_services
     protected $fillable = [
-        'tanggal_booking', 
-        'nama', 
-        'alamat', 
-        'no_hp', 
         'jenis_barang', 
+        'nama', 
+        'no_hp', 
+        'alamat', 
         'kerusakan', 
+        'tanggal_booking', 
     ];
 
     public function user()

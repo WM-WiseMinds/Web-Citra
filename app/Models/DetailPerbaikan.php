@@ -17,7 +17,6 @@ class DetailPerbaikan extends Model
     protected $fillable = [
         'perbaikan_id', 
         'user_id', 
-        'jenis_barang', 
         'kerusakan', 
         'keterangan', 
         'persetujuan', 
