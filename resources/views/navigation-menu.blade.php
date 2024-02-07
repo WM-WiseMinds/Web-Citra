@@ -74,6 +74,14 @@
                         <span class="ml-4">Transaksi</span>
                     </x-nav-link>
                 </li>
+                <li class="relative px-6 py-3 {{ request()->routeIs('review') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                    <x-nav-link href="{{ route('review') }}" :active="request()->routeIs('review')" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('review') ? 'text-rose-400' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z" />
+                          </svg>                                                            
+                        <span class="ml-4">Review</span>
+                    </x-nav-link>
+                </li>
                 {{-- <li class="relative px-6 py-3 {{ request()->routeIs('users') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                     <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('users') ? 'text-rose-400' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

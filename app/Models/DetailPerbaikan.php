@@ -25,4 +25,9 @@ class DetailPerbaikan extends Model
         // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah Perbaikan maka dari itu di hubungkan dengan model Perbaikan
         return $this->belongsTo(Perbaikan::class); 
     }
+    public function transaksi()
+    {
+        // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah Transaksi maka dari itu di hubungkan dengan model Transaksi
+        return $this->hasOne(Transaksi::class); 
+    }
 }

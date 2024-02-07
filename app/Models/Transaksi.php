@@ -16,6 +16,7 @@ class Transaksi extends Model
     //untuk menyimpan data atribut tabel dari tabel transaksis
     protected $fillable = [
         'user_id',
+        'detailperbaikan_id',
         'biaya', 
         'jumlah',
         'total_biaya', 
@@ -31,13 +32,13 @@ class Transaksi extends Model
     // Relasi one-to-many dengan model Perbaikan
     public function perbaikan()
     {
-        // Relasi one-to-many dengan menggunakan atribut hasMany yang akan di hubungkan dengan model Perbaikan
-        return $this->hasMany(Perbaikan::class); 
+        // Relasi one-to-many dengan menggunakan atribut hasOne yang akan di hubungkan dengan model Perbaikan
+        return $this->belongsTo(Perbaikan::class); 
     }
     // Relasi one-to-many dengan model BookingService
     public function bookingservice()
     {
-        // Relasi one-to-many dengan menggunakan atribut hasMany yang akan di hubungkan dengan model BookingService
-        return $this->hasMany(BookingService::class); 
+        // Relasi one-to-many dengan menggunakan atribut hasOne yang akan di hubungkan dengan model BookingService
+        return $this->belongsTo(BookingService::class); 
     }
 }

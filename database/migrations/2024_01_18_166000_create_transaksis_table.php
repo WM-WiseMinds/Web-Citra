@@ -15,8 +15,12 @@ return new class extends Migration
     Schema::create('transaksi', function (Blueprint $table) {
         // Kolom ID unik untuk setiap transaksi
         $table->id(); 
-        //
+        // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
         $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+        // Kolom Id detail perbaikan yang terkait dengan tabel 'detailperbaikan' dengan aksi onDelete 'cascade'
+        $table->foreignId('detailperbaikan_id')->constrained('detailperbaikan')->onDelete('cascade');
+        // Kolom Id booking service yang terkait dengan tabel 'bookingservice' dengan aksi onDelete 'cascade'
+        $table->foreignId('bookingservice_id')->constrained('bookingservice')->onDelete('cascade');
         // Kolom biaya per item
         $table->integer('biaya' ); 
         // Kolom jumlah item yang dibeli

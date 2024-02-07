@@ -46,4 +46,7 @@ Route::middleware([
     Route::get('/transaksi', function () {
         return view('transaksi');
     })->name('transaksi');
+    Route::get('/review', function () {
+        return view('review');
+    })->name('review');
 });

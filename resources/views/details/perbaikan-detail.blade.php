@@ -24,7 +24,15 @@
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">kerusakan</td>
                 <td class="border px-4 py-2">{{ $row->bookingservice->kerusakan }}</td>
-            </tr>                
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Biaya</td>
+                <td class="border px-4 py-2">{{ $row->detailperbaikan->biaya }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Status</td>
+                <td class="border px-4 py-2">{{ $row->detailperbaikan->status }}</td>
+            </tr>
         </tbody>
     </table>
 </div>

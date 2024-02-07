@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Perbaikan>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
  */
-class PerbaikanFactory extends Factory
+class ReviewFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,11 @@ class PerbaikanFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomNumber('1','5'),
+            'user_id' => $this->faker->randomNumber('1','4'),
             'bookingservice_id' => $this->faker->randomNumber('1','4'),
-            'keterangan' => $this->faker->word,
-            'persetujuan' => $this->faker->randomElement(['Perbaiki', 'Tidak'])
+            'rating' => $this->faker->randomNumber('1','5'),
+            'comment' => $this->faker->text,
+            'review_date' => $this->faker->date('Y-m-d'),
         ];
     }
 }

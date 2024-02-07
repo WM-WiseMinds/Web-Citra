@@ -44,8 +44,9 @@ final class BookingServiceTable extends PowerGridComponent
     {
         return BookingService::query()
             ->leftJoin('users', 'bookingservice.user_id', '=', 'users.id')
+            ->leftJoin('transaksi', 'bookingservice.transaksi_id', '=', 'transaksi.id')
             // ->groupBy('bookingservice.id','bookingservice.jenis_barang', 'bookingservice.kerusakan', 'bookingservice.tanggal_booking','bookingservice.user_id','bookingservice.created_at','bookingservice.update_at') // Tambahkan semua kolom yang Anda pilih dari tabel `bookingservice` di sini
-            ->select('bookingservice.*', 'users.name as user_name', 'users.no_hp as no_hp', 'users.alamat as alamat')
+            ->select('bookingservice.*', 'users.name as user_name', 'users.no_hp as no_hp', 'users.alamat as alamat', 'transaksi.biaya as biaya', 'transaksi.jumlah as jumlah')
             ;
     }
 
@@ -53,7 +54,7 @@ final class BookingServiceTable extends PowerGridComponent
     {
         return [
             'user' => ['name', 'no_hp', 'alamat'],
-
+            'transaksi' => ['jumlah','biaya'],
         ];
 
     }
@@ -67,7 +68,9 @@ final class BookingServiceTable extends PowerGridComponent
         ->add('no_hp')
         ->add('alamat')
         ->add('kerusakan')
-        ->add('tanggal_booking');
+        ->add('tanggal_booking')
+        ->add('jumlah')
+        ->add('biaya');
     }
 
     public function columns(): array
@@ -82,7 +85,7 @@ final class BookingServiceTable extends PowerGridComponent
             Column::make('Jenis Barang', 'jenis_barang')
                 ->sortable()
                 ->searchable(),
-            Column::make('Kerusakan', 'kerusakan')
+            Column::make('Tanggal Booking', 'tanggal_booking')
                 ->sortable()
                 ->searchable(),
             Column::action('Action'),

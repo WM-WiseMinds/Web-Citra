@@ -10,6 +10,7 @@
                 <th style="border: 1px solid black; padding: 5px; text-align: left;">Keterangan</th>
                 <th style="border: 1px solid black; padding: 5px; text-align: left;">Kerusakan</th>
                 <th style="border: 1px solid black; padding: 5px; text-align: left;">tanggal Booking</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: left;">Total Biaya</th>
                 <th style="border: 1px solid black; padding: 5px; text-align: left;">Updated At</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $perbaikan->keterangan }}</td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $perbaikan->bookingservice->kerusakan }}</td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $perbaikan->bookingservice->tanggal_booking }}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $perbaikan->transaksi->total_biaya }}</td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $perbaikan->updated_at}}</td>
                 </tr>
             @endforeach

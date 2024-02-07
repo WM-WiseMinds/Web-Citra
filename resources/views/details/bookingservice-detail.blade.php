@@ -29,6 +29,14 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Tanggal Booking</td>
                 <td class="border px-4 py-2">{{ $row->tanggal_booking }}</td>
             </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Jumlah</td>
+                <td class="border px-4 py-2">{{ $row->transaksi->jumlah }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Biaya</td>
+                <td class="border px-4 py-2">{{ $row->transaksi->biaya }}</td>
+            </tr>
         </tbody>
     </table>
 </div>

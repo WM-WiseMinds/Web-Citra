@@ -45,7 +45,7 @@ final class TransaksiTable extends PowerGridComponent
          
         return Transaksi::query()
         ->leftJoin('users', 'transaksi.user_id', '=', 'users.id')
-        ->select('transaksi.*', 'users.name as user_name', )
+        ->select('transaksi.*', 'users.name as user_name')
         ;
     }
 

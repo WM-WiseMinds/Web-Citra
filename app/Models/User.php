@@ -104,4 +104,12 @@ class User extends Authenticatable
         // Relasi one-to-many dengan model Transaksi
         return $this->hasMany(Transaksi::class);
     }
+
+    // Metode 'review()' digunakan untuk mendefinisikan hubungan antara model ini dengan model 'Review'.
+    // Model ini akan memiliki satu relasi 'hasMany' dengan 'Review', yang berarti satu pengguna dapat memiliki banyak review.
+    public function review()
+    {
+        // Relasi one-to-many dengan model Review
+        return $this->hasMany(Review::class);
+    }
 }

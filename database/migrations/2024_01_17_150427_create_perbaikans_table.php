@@ -19,8 +19,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Kolom ID pemesanan yang terkait dengan tabel 'bookingservices' dengan aksi onDelete 'cascade'
             $table->foreignId('bookingservice_id')->constrained('bookingservice')->onDelete('cascade');
-            // Kolom ID transaksi yang terkait dengan tabel 'transaksi' dengan aksi onDelete 'cascade'
-            $table->foreignId('transaksi_id')->constrained('transaksi')->onDelete('cascade');
             // Kolom keterangan perbaikan
             $table->text('keterangan'); 
             // Kolom persetujuan perbaikan

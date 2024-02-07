@@ -34,9 +34,14 @@ class BookingService extends Model
     }
 
     public function transaksi()
-
     {
-        // Relasi one-to-many dengan menggunakan atribut belongsTo yang akan di hubungkan dengan model Transaksi
-        return $this->belongsTo(Transaksi::class); 
+        // Relasi one-to-many dengan menggunakan atribut hasone yang akan di hubungkan dengan model Transaksi
+        return $this->hasOne(Transaksi::class); 
+    }
+
+    public function review()
+    {
+        // Relasi one-to-many dengan menggunakan atribut hasone yang akan di hubungkan dengan model Review
+        return $this->hasOne(Review::class); 
     }
 }

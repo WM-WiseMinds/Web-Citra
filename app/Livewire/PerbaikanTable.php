@@ -46,7 +46,7 @@ final class PerbaikanTable extends PowerGridComponent
             ->leftJoin('users', 'perbaikan.user_id', '=', 'users.id')
             ->leftJoin('bookingservice', 'perbaikan.bookingservice_id', '=', 'perbaikan.id')
             ->leftJoin('detailperbaikan', 'perbaikan.id', '=', 'detailperbaikan.perbaikan_id')
-            ->select('perbaikan.*', 'users.name as user_name', 'bookingservice.jenis_barang', 'bookingservice.kerusakan')
+            ->select('perbaikan.*', 'users.name as user_name', 'bookingservice.jenis_barang', 'bookingservice.kerusakan', 'detailperbaikan.status', 'detailperbaikan.biaya')
             
         ;
     }
@@ -55,7 +55,7 @@ final class PerbaikanTable extends PowerGridComponent
         return [
             'user' => ['name', 'no_hp', 'alamat'],
             'bookingservice' => ['jenis_barang', 'kerusakan'],
-        
+            'detailperbaikan' => ['biaya', 'status'],
         ];
     }
 
@@ -67,6 +67,9 @@ final class PerbaikanTable extends PowerGridComponent
             ->add('user_name')
             ->add('bookingservice.jenis_barang')
             ->add('bookingservice.kerusakan')
+            ->add('detailperbaikan.status')
+            ->add('detailperbaikan.biaya')
+
         ;
 
     }
@@ -77,7 +80,7 @@ final class PerbaikanTable extends PowerGridComponent
             Column::make('ID', 'id')
                 ->searchable()
                 ->sortable(),
-            Column::make('Nama User', 'user_name')
+            Column::make('Nama ', 'user_name')
                 ->searchable()
                 ->sortable(),
             Column::make('Jenis barang', 'bookingservice.jenis_barang')
@@ -87,6 +90,12 @@ final class PerbaikanTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
             Column::make('Persetujuan', 'persetujuan')
+                ->searchable()
+                ->sortable(),
+            Column::make('Status', 'detailperbaikan.status')
+                ->searchable()
+                ->sortable(),
+            Column::make('Biaya', 'detailperbaikan.biaya')
                 ->searchable()
                 ->sortable(),
             Column::action('Action')
