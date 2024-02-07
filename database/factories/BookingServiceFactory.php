@@ -17,13 +17,10 @@ class BookingServiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'jenis_barang' => 'enim',
-            'nama' => 'Stacey Pouros',
-            'no_hp' => '615-870-2399',
-            'alamat' => '735 Roob Grove North Marisa, NY 91863',
-            'kerusakan' => 'Ut qui a dolorem laborum id laudantium.',
-            'tanggal_booking' => '2014-10-10',
-            'user_id' => '1',
+            'user_id' => $this->faker->randomNumber('1','4'),
+            'jenis_barang' => $this->faker->word,
+            'kerusakan' => $this->faker->word,
+            'tanggal_booking' => $this->faker->date(),
         ];
     }
 }

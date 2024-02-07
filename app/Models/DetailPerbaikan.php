@@ -15,11 +15,9 @@ class DetailPerbaikan extends Model
     
     //untuk menyimpan data atribut tabel dari tabel detailperbaikan
     protected $fillable = [
-        'perbaikan_id', 
-        'user_id', 
-        'kerusakan', 
-        'keterangan', 
-        'persetujuan', 
+        'perbaikan_id',
+        'biaya', 
+        'status',
     ];
     //untuk menghubungkan model detailperbaikan dengan model user melalui relasi one-to-many
     public function perbaikan()

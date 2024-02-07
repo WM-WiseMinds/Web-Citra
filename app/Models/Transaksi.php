@@ -11,7 +11,7 @@ class Transaksi extends Model
     use HasFactory;
     
     // Nama tabel yang sesuai dengan model
-    protected $table = 'transaksis'; 
+    protected $table = 'transaksi'; 
 
     //untuk menyimpan data atribut tabel dari tabel transaksis
     protected $fillable = [
@@ -19,6 +19,7 @@ class Transaksi extends Model
         'biaya', 
         'jumlah',
         'total_biaya', 
+
     ];
     
     // Relasi one-to-many dengan model User
@@ -26,5 +27,17 @@ class Transaksi extends Model
     {
         // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang di tuju adalah user maka dari itu di hubungkan dengan model User
         return $this->belongsTo(User::class, 'user_id'); 
+    }
+    // Relasi one-to-many dengan model Perbaikan
+    public function perbaikan()
+    {
+        // Relasi one-to-many dengan menggunakan atribut hasMany yang akan di hubungkan dengan model Perbaikan
+        return $this->hasMany(Perbaikan::class); 
+    }
+    // Relasi one-to-many dengan model BookingService
+    public function bookingservice()
+    {
+        // Relasi one-to-many dengan menggunakan atribut hasMany yang akan di hubungkan dengan model BookingService
+        return $this->hasMany(BookingService::class); 
     }
 }

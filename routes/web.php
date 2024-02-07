@@ -32,7 +32,7 @@ Route::middleware([
 
     Route::get('/roles', function () {
         return view('roles');
-    })->name('roles');
+    })->name('roles');   
 
     Route::get('/users', function () {
         return view('users');

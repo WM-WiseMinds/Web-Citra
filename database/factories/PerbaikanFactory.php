@@ -17,10 +17,10 @@ class PerbaikanFactory extends Factory
     public function definition(): array
     {
         return [
-            'jenis_barang' => $this->faker->word,
-            'persetujuan' => $this->faker->word,
+            'user_id' => $this->faker->randomNumber('1','5'),
+            'bookingservice_id' => $this->faker->randomNumber('1','5'),
             'keterangan' => $this->faker->word,
-            'kerusakan' => $this->faker->word,
+            'persetujuan' => $this->faker->randomElement(['Perbaiki', 'Tidak'])
         ];
     }
 }

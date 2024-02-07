@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         // Membuat tabel 'detail_perbaikans' untuk menyimpan data detail perbaikan
-        Schema::create('detail_perbaikans', function (Blueprint $table) {
+        Schema::create('detailperbaikan', function (Blueprint $table) {
             // Kolom ID unik sebagai primary key untuk setiap detail perbaikan
             $table->id(); 
             // Kolom ID perbaikan yang terkait dengan tabel 'perbaikans' dengan aksi onDelete 'cascade'
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status', 20);
             // Kolom biaya barang
             $table->integer('biaya');
-
+            //kolom Timestamp otomatis untuk pembuatan dan pembaruan
             $table->timestamps(); 
             });
     }

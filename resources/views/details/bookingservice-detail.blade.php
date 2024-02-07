@@ -5,25 +5,29 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Id</td>
                 <td class="border px-4 py-2">{{ $id }}</td>
             </tr>
-            {{-- @if ($row->foto)
-                <tr>
-                    <td class="border px-4 py-2 text-sm font-semibold">Foto</td>
-                    <td class="border px-4 py-2">
-                        <img src="{{ asset('storage/' . $row->foto) }}" alt="Foto" class="w-32 h-32 object-cover">
-                    </td>
-                </tr>
-            @endif --}}
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">alamat</td>
-                <td class="border px-4 py-2">{{ $row->alamat }}</td>
+                <td class="border px-4 py-2 text-sm font-semibold">Nama</td>
+                <td class="border px-4 py-2">{{ $row->user->name}}</td>
             </tr>
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">kerusakan</td>
+                <td class="border px-4 py-2 text-sm font-semibold">Jenis Barang</td>
+                <td class="border px-4 py-2">{{ $row->jenis_barang}}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">No Hp</td>
+                <td class="border px-4 py-2">{{ $row->user->no_hp }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Alamat</td>
+                <td class="border px-4 py-2">{{ $row->user->alamat }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Kerusakan</td>
                 <td class="border px-4 py-2">{{ $row->kerusakan }}</td>
             </tr>
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">no_hp</td>
-                <td class="border px-4 py-2">{{ $row->no_hp }}</td>
+                <td class="border px-4 py-2 text-sm font-semibold">Tanggal Booking</td>
+                <td class="border px-4 py-2">{{ $row->tanggal_booking }}</td>
             </tr>
         </tbody>
     </table>

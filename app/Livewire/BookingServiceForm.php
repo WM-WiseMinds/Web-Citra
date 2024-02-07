@@ -3,29 +3,28 @@
 namespace App\Livewire;
 
 use App\Models\BookingService;
+use App\Models\Perbaikan;
 use App\Models\User;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class BookingServiceForm extends Component
+class BookingServiceForm extends ModalComponent
 {
-    public $tanggal_booking, $nama, $alamat, $no_hp, $jenis_barang, $kerusakan, $id;
-    
-    public $user_id = [];
+    public $tanggal_booking, $perbaikan, $user, $bookingservice, $jenis_barang, $kerusakan, $id, $user_id, $perbaikan_id, $bookingservice_id;
+
 
     public function render()
     {
         $user = User::all();
         $bookingservice = BookingService::all();
 
-        return view('livewire.booking-service-form', compact('user', 'bookingservice')) ;
+        return view('livewire.bookingservice-form', compact('user', 'bookingservice')) ;
     }
 
     public function resetCreateForm()
     {
+        $this->user_id = '';
         $this->jenis_barang = '';
-        $this->nama = '';
-        $this->no_hp = '';
-        $this->alamat = '';
         $this->kerusakan = '';
         $this->tanggal_booking = '';
     }
@@ -33,10 +32,8 @@ class BookingServiceForm extends Component
     public function store()
     {
         $this->validate([
+            'user_id' => 'required',
             'jenis_barang' => 'required',
-            'nama' => 'required',
-            'no_hp' => 'required',
-            'alamat' => 'required',
             'kerusakan' => 'required',
             'tanggal_booking' => 'required',
         ]);
@@ -44,24 +41,22 @@ class BookingServiceForm extends Component
         if ($this->id) {
             $bookingservice = BookingService::find($this->id);
             $bookingservice->update([
+
+                'user_id' => $this->user_id,
                 'jenis_barang' => $this->jenis_barang,
-                'nama' => $this->nama,
-                'no_hp' => $this->no_hp,
-                'alamat' => $this->alamat,
                 'kerusakan' => $this->kerusakan,
                 'tanggal_booking' => $this->tanggal_booking,
             ]);
-            $bookingservice->user()->sync($this->user_id);
+            // $bookingservice->user()->sync($this->user_id);
         } else {
             $bookingservice = BookingService::create([
+
+                'user_id' => $this->user_id,
                 'jenis_barang' => $this->jenis_barang,
-                'nama' => $this->nama,
-                'no_hp' => $this->no_hp,
-                'alamat' => $this->alamat,
                 'kerusakan' => $this->kerusakan,
                 'tanggal_booking' => $this->tanggal_booking,
             ]);
-            $bookingservice->user()->attach($this->user_id);
+            // $bookingservice->user()->attach($this->user_id);
         }
 
         $this->closeModalWithEvents([
@@ -73,17 +68,19 @@ class BookingServiceForm extends Component
 
     public function mount($rowId = null)
     {
-        
+        $this->bookingservice = BookingService::all();
+        $this->user = User::all();
         if (!is_null($rowId)) {
+
+            $this->user = User::all();
             $bookingservice = BookingService::findOrFail($rowId);
             $this->id = $rowId;
-            $this->tanggal_booking = $bookingservice->tanggal_booking;
-            $this->nama = $bookingservice->nama;
-            $this->alamat = $bookingservice->alamat;
-            $this->no_hp = $bookingservice->no_hp;
             $this->jenis_barang = $bookingservice->jenis_barang;
+            $this->tanggal_booking = $bookingservice->tanggal_booking;
             $this->kerusakan = $bookingservice->kerusakan;
-            $this->user_id = $bookingservice->user->pluck('id')->toArray();
+            $this->user_id = $bookingservice->user_id;
+
+
         }
     }
 }

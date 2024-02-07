@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('no_hp', 20)->nullable();
             $table->text('alamat' )->nullable();
-            $table->enum('status', ['Aktif', 'Tidak Aktif']);
+            $table->enum('status', ['Aktif', 'Non-Aktif']);
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamps();
         });

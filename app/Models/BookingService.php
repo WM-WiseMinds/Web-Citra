@@ -15,10 +15,8 @@ class BookingService extends Model
     
     //untuk menyimpan data atribut tabel dari tabel booking_services
     protected $fillable = [
-        'jenis_barang', 
-        'nama', 
-        'no_hp', 
-        'alamat', 
+        'user_id',
+        'jenis_barang',
         'kerusakan', 
         'tanggal_booking', 
     ];
@@ -33,5 +31,12 @@ class BookingService extends Model
     {
         // Relasi one-to-many dengan menggunakan atribut hasMany yang akan di hubungkan dengan model Perbaikan
         return $this->hasMany(Perbaikan::class); 
+    }
+
+    public function transaksi()
+
+    {
+        // Relasi one-to-many dengan menggunakan atribut belongsTo yang akan di hubungkan dengan model Transaksi
+        return $this->belongsTo(Transaksi::class); 
     }
 }

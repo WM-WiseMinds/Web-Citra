@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\BookingService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -43,15 +44,17 @@ final class BookingServiceTable extends PowerGridComponent
     {
         return BookingService::query()
             ->leftJoin('users', 'bookingservice.user_id', '=', 'users.id')
-            ->leftJoin('perbaikan', 'bookingservice.id', '=', 'perbaikan.bookingservice_id')
-            ->groupBy('bookingservice.id', 'bookingservice.jenis_barang', 'bookingservice.nama', 'bookingservice.no_hp', 'bookingservice.alamat', 'bookingservice.kerusakan', 'bookingservice.tanggal_booking', 'users.name') // Tambahkan semua kolom yang Anda pilih dari tabel `bookingservice` di sini
-            ->selectRaw('bookingservice.id, bookingservice.jenis_barang, bookingservice.nama, bookingservice.no_hp, bookingservice.alamat, bookingservice.kerusakan, bookingservice.tanggal_booking, users.name as user_name')
+            // ->groupBy('bookingservice.id','bookingservice.jenis_barang', 'bookingservice.kerusakan', 'bookingservice.tanggal_booking','bookingservice.user_id','bookingservice.created_at','bookingservice.update_at') // Tambahkan semua kolom yang Anda pilih dari tabel `bookingservice` di sini
+            ->select('bookingservice.*', 'users.name as user_name', 'users.no_hp as no_hp', 'users.alamat as alamat')
             ;
     }
 
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'user' => ['name', 'no_hp', 'alamat'],
+
+        ];
 
     }
 
@@ -59,8 +62,8 @@ final class BookingServiceTable extends PowerGridComponent
     {
         return PowerGrid::fields()
         ->add('id')
+        ->add('user_name')
         ->add('jenis_barang')
-        ->add('nama')
         ->add('no_hp')
         ->add('alamat')
         ->add('kerusakan')
@@ -70,14 +73,16 @@ final class BookingServiceTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id')->sortable(),
+            Column::make('Id', 'id')
+                ->sortable()
+                ->searchable(),
+            Column::make('Nama', 'user_name')
+                ->sortable()
+                ->searchable(),
             Column::make('Jenis Barang', 'jenis_barang')
                 ->sortable()
                 ->searchable(),
-            Column::make('Nama', 'nama')
-                ->sortable()
-                ->searchable(),
-            Column::make('Tanggal Booking', 'tanggal_booking')
+            Column::make('Kerusakan', 'kerusakan')
                 ->sortable()
                 ->searchable(),
             Column::action('Action'),
@@ -106,7 +111,7 @@ final class BookingServiceTable extends PowerGridComponent
                 ')
                 ->id()
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->openModal('rapat-form', ['rowId' => $row->id]),
+                ->openModal('bookingservice-form', ['rowId' => $row->id]),
             Button::add('delete')
                 ->slot('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
@@ -173,7 +178,6 @@ final class BookingServiceTable extends PowerGridComponent
     {
         $bookingservice = BookingService::findOrFail($rowId);
         // Detach all associated users
-        $bookingservice->user()->detach();
         $bookingservice->delete();
     }
     /*

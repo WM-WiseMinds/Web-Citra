@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id(); 
             // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Kolom ID transaksi yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
+            $table->foreignId('transaksi_id')->constrained('transaksi')->onDelete('cascade');
             // Kolom tanggal pemesanan
             $table->date('tanggal_booking'); 
             // Kolom jenis barang yang membutuhkan layanan

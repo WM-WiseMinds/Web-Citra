@@ -15,9 +15,8 @@ class Perbaikan extends Model
 
     //untuk menyimpan data atribut tabel dari tabel perbaikan
     protected $fillable = [
-        'bookingservice_id', 
         'user_id',
-        'kerusakan',
+        'bookingservice_id', 
         'keterangan', 
         'persetujuan', 
     ];
@@ -26,7 +25,7 @@ class Perbaikan extends Model
     public function detailperbaikan()
     {
         // Relasi one-to-many dengan menggunakan atribut hasMany yang akan di hubungkan dengan model DetailPerbaikan
-        return $this->hasMany(Detailperbaikan::class); 
+        return $this->hasMany(DetailPerbaikan::class); 
     }
     //untuk menghubungkan model perbaikan dengan model user melalui relasi one-to-many
     public function user()
@@ -38,6 +37,12 @@ class Perbaikan extends Model
     public function bookingservice()
     {
         // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang di tuju adalah  Bookingservice  maka dari itu di hubungkan dengan model BookingService
-        return $this->belongsTo(Bookingservice::class); 
+        return $this->belongsTo(BookingService::class); 
+    }
+    //untuk menghubungkan model perbaikan dengan model transaksi melalui relasi one-to-many
+    public function transaksi()
+    {
+        // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang di tuju adalah  transaksi  maka dari itu di hubungkan dengan model Transaksi
+        return $this->belongsTo(Transaksi::class); 
     }
 }
