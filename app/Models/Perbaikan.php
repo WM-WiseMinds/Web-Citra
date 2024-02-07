@@ -49,7 +49,7 @@ class Perbaikan extends Model
     public function getDetailPerbaikanSummaryAttribute()
     {
         return $this->detailperbaikan->map(function ($detail) {
-            return "Status: {$detail->status}, Biaya: {$detail->biaya}";
+            return "Status: {$detail->status}, <br> Biaya: {$detail->biaya}";
         })->join('; <br>');
     }
 }

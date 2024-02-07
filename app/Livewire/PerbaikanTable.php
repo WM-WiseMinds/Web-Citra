@@ -45,14 +45,32 @@ final class PerbaikanTable extends PowerGridComponent
     public function datasource(): Builder
     {
         return Perbaikan::with(['user', 'bookingservice', 'detailperbaikan']);
+        // return Perbaikan::query()
+        //     ->join('users', function ($users) {
+        //         $users->on('perbaikan.user_id', '=', 'users.id');
+        //     })
+        //     ->join('bookingservice', function ($bookingservice) {
+        //         $bookingservice->on('perbaikan.bookingservice_id', '=', 'bookingservice.id');
+        //     })
+        //     ->join('detailperbaikan', function ($detailperbaikan) {
+        //         $detailperbaikan->on('perbaikan.id', '=', 'detailperbaikan.perbaikan_id');
+        //     })
+        //     ->select([
+        //         'perbaikan.id',
+        //         'perbaikan.persetujuan',
+        //         'users.name as user_name',
+        //         'bookingservice.jenis_barang as jenis_barang',
+        //         'bookingservice.kerusakan as kerusakan',
+        //         'detailperbaikan.status',
+        //     ]);
     }
 
     public function relationSearch(): array
     {
         return [
-            // 'user' => ['name', 'no_hp', 'alamat'],
-            // 'bookingservice' => ['jenis_barang', 'kerusakan'],
-            // 'detailperbaikan' => ['biaya', 'status'],
+            'user' => ['name', 'no_hp', 'alamat'],
+            'bookingservice' => ['jenis_barang', 'kerusakan'],
+            'detailperbaikan' => ['biaya', 'status'],
         ];
     }
 
@@ -63,8 +81,7 @@ final class PerbaikanTable extends PowerGridComponent
             ->add('persetujuan')
             ->add('user.name')
             ->add('bookingservice.jenis_barang')
-            ->add('bookingservice.kerusakan')
-            ->add('detail_perbaikan_summary');
+            ->add('bookingservice.kerusakan');
     }
 
     public function columns(): array
@@ -86,7 +103,6 @@ final class PerbaikanTable extends PowerGridComponent
                 ->searchable()
                 ->sortable(),
             Column::make('Detail Perbaikan', 'detail_perbaikan_summary')
-                ->searchable()
                 ->sortable(),
             // Column::make('Status', 'detailperbaikan.status')
             //     ->searchable()
