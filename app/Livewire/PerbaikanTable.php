@@ -6,6 +6,7 @@ use App\Models\Perbaikan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Detail;
@@ -45,10 +46,9 @@ final class PerbaikanTable extends PowerGridComponent
         return Perbaikan::query()
             ->leftJoin('users', 'perbaikan.user_id', '=', 'users.id')
             ->leftJoin('bookingservice', 'perbaikan.bookingservice_id', '=', 'perbaikan.id')
-            ->leftJoin('detailperbaikan', 'perbaikan.id', '=', 'detailperbaikan.perbaikan_id')
-            ->select('perbaikan.*', 'users.name as user_name', 'bookingservice.jenis_barang', 'bookingservice.kerusakan', 'detailperbaikan.status', 'detailperbaikan.biaya')
+            ->leftJoin('detailperbaikan', 'perbaikan.id', '=', 'detailperbaikan.perbaikan_id') // join dengan detailperbaikan
+            ->select('perbaikan.*', 'users.name as user_name', 'bookingservice.jenis_barang', 'bookingservice.kerusakan', 'detailperbaikan.status as status', 'detailperbaikan.biaya as biaya');
             
-        ;
     }
     public function relationSearch(): array
     {
@@ -67,8 +67,8 @@ final class PerbaikanTable extends PowerGridComponent
             ->add('user_name')
             ->add('bookingservice.jenis_barang')
             ->add('bookingservice.kerusakan')
-            ->add('detailperbaikan.status')
-            ->add('detailperbaikan.biaya')
+            ->add('status')
+            ->add('biaya')
 
         ;
 
@@ -92,10 +92,10 @@ final class PerbaikanTable extends PowerGridComponent
             Column::make('Persetujuan', 'persetujuan')
                 ->searchable()
                 ->sortable(),
-            Column::make('Status', 'detailperbaikan.status')
+            Column::make('Status', 'status')
                 ->searchable()
                 ->sortable(),
-            Column::make('Biaya', 'detailperbaikan.biaya')
+            Column::make('Biaya', 'biaya')
                 ->searchable()
                 ->sortable(),
             Column::action('Action')
