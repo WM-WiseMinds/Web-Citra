@@ -104,4 +104,9 @@ class User extends Authenticatable
         // Relasi one-to-many dengan model Review
         return $this->hasMany(Review::class);
     }
+
+    protected function getDefaultGuardName(): string
+    {
+        return 'web';
+    }
 }
