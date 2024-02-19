@@ -147,7 +147,7 @@ final class PermissionsTable extends PowerGridComponent
             mkdir($path, 0777, true);
         }
         // Membuat file pdf
-        $pdf =Pdf::loadView('pdf.permissions', ['datasource' => $datasource]);
+        $pdf = Pdf::loadView('pdf.permissions', ['datasource' => $datasource]);
         // Menyimpan file pdf ke folder pdf
         $pdf->save($path . '/permissions.pdf');
         // Menampilkan file pdf

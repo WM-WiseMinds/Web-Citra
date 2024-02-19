@@ -22,6 +22,8 @@
 <body class="font-sans antialiased">
     <x-banner />
 
+    <x-toaster-hub />
+
     <div class="flex h-screen bg-gray-100" x-data="{ open: false }">
         @livewire('navigation-menu')
 
@@ -29,9 +31,11 @@
         <div class="flex flex-col flex-1 w-full">
             @if (isset($header))
                 <header class="z-10 py-4 bg-orange-500 shadow-md">
-                    <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+                    <div
+                        class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
                         <div class="-me-2 flex items-center md:hidden">
-                            <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                            <button @click="open = !open"
+                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
