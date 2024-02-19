@@ -35,42 +35,34 @@ final class BookingServiceTable extends PowerGridComponent
                 ->showPerPage()
                 ->showRecordCount(),
             Detail::make()
-            ->view('details.bookingservice-detail')
-            ->showCollapseIcon()
+                ->view('details.bookingservice-detail')
+                ->showCollapseIcon()
         ];
     }
 
     public function datasource(): Builder
     {
         return BookingService::query()
-            ->leftJoin('users', 'bookingservice.user_id', '=', 'users.id')
-            ->leftJoin('transaksi', 'bookingservice.transaksi_id', '=', 'transaksi.id')
-            // ->groupBy('bookingservice.id','bookingservice.jenis_barang', 'bookingservice.kerusakan', 'bookingservice.tanggal_booking','bookingservice.user_id','bookingservice.created_at','bookingservice.update_at') // Tambahkan semua kolom yang Anda pilih dari tabel `bookingservice` di sini
-            ->select('bookingservice.*', 'users.name as user_name', 'users.no_hp as no_hp', 'users.alamat as alamat', 'transaksi.biaya as biaya', 'transaksi.jumlah as jumlah')
-            ;
+            ->with(['user']);
     }
 
     public function relationSearch(): array
     {
         return [
             'user' => ['name', 'no_hp', 'alamat'],
-            'transaksi' => ['jumlah','biaya'],
         ];
-
     }
 
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-        ->add('id')
-        ->add('user_name')
-        ->add('jenis_barang')
-        ->add('no_hp')
-        ->add('alamat')
-        ->add('kerusakan')
-        ->add('tanggal_booking')
-        ->add('jumlah')
-        ->add('biaya');
+            ->add('id')
+            ->add('user.name')
+            ->add('jenis_barang')
+            ->add('no_hp')
+            ->add('alamat')
+            ->add('kerusakan')
+            ->add('tanggal_booking');
     }
 
     public function columns(): array
@@ -79,7 +71,7 @@ final class BookingServiceTable extends PowerGridComponent
             Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
-            Column::make('Nama', 'user_name')
+            Column::make('Nama', 'user.name')
                 ->sortable()
                 ->searchable(),
             Column::make('Jenis Barang', 'jenis_barang')
@@ -94,14 +86,13 @@ final class BookingServiceTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-        ];
+        return [];
     }
 
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(\App\Models\BookingService $row): array

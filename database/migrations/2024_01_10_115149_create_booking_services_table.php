@@ -14,18 +14,17 @@ return new class extends Migration
         // Membuat tabel 'bookingservices' untuk menyimpan data pemesanan layanan
         Schema::create('bookingservice', function (Blueprint $table) {
             // Kolom ID unik untuk setiap pemesanan
-            $table->id(); 
+            $table->id();
             // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-
             // Kolom tanggal pemesanan
-            $table->date('tanggal_booking'); 
+            $table->date('tanggal_booking');
             // Kolom jenis barang yang membutuhkan layanan
-            $table->string('jenis_barang', 50); 
+            $table->string('jenis_barang', 50);
             // Kolom deskripsi kerusakan barang
-            $table->text('kerusakan'); 
+            $table->text('kerusakan');
             // Kolom timestamp otomatis untuk pembuatan dan pembaruan
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

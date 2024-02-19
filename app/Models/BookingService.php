@@ -11,14 +11,14 @@ class BookingService extends Model
     use HasFactory;
 
     // Nama tabel yang sesuai dengan model
-    protected $table = 'bookingservice'; 
-    
+    protected $table = 'bookingservice';
+
     //untuk menyimpan data atribut tabel dari tabel booking_services
     protected $fillable = [
         'user_id',
         'jenis_barang',
-        'kerusakan', 
-        'tanggal_booking', 
+        'kerusakan',
+        'tanggal_booking',
     ];
 
     public function user()
@@ -30,18 +30,18 @@ class BookingService extends Model
     public function perbaikan()
     {
         // Relasi one-to-many dengan menggunakan atribut hasMany yang akan di hubungkan dengan model Perbaikan
-        return $this->hasMany(Perbaikan::class); 
+        return $this->hasMany(Perbaikan::class);
     }
 
     public function transaksi()
     {
         // Relasi one-to-many dengan menggunakan atribut hasone yang akan di hubungkan dengan model Transaksi
-        return $this->hasOne(Transaksi::class); 
+        return $this->hasOne(Transaksi::class);
     }
 
     public function review()
     {
         // Relasi one-to-many dengan menggunakan atribut hasone yang akan di hubungkan dengan model Review
-        return $this->hasOne(Review::class); 
+        return $this->hasOne(Review::class);
     }
 }
