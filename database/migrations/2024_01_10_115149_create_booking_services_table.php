@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('jenis_barang', 50);
             // Kolom deskripsi kerusakan barang
             $table->text('kerusakan');
+            // Kolom status pemesanan
+            $table->enum('status', ['Belum Diproses', 'Diproses'])->default('Belum Diproses');
             // Kolom timestamp otomatis untuk pembuatan dan pembaruan
             $table->timestamps();
         });

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -34,6 +35,9 @@ final class UserTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+            Detail::make()
+                ->view('details.user-detail')
+                ->showCollapseIcon()
         ];
 
         if (auth()->user()->can('export')) {
@@ -78,10 +82,6 @@ final class UserTable extends PowerGridComponent
             Column::make('Id', 'id')
                 ->sortable(),
             Column::make('Name', 'name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Email', 'email')
                 ->sortable()
                 ->searchable(),
 

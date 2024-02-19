@@ -51,7 +51,17 @@ class PerbaikanForm extends ModalComponent
             PerbaikanTable::class => "perbaikanUpdated",
         ]);
 
+
         $this->resetCreateForm();
+
+        // Hapus data booking service yang sesuai dari tabelnya
+        if ($this->perbaikan->wasRecentlyCreated) {
+            $bookingService = BookingService::find($this->perbaikan->bookingservice_id);
+            if ($bookingService) {
+                $bookingService->status = 'Diproses';
+                $bookingService->save();
+            }
+        }
     }
 
     public function mount($rowId = null)

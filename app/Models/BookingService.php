@@ -19,6 +19,7 @@ class BookingService extends Model
         'jenis_barang',
         'kerusakan',
         'tanggal_booking',
+        'status'
     ];
 
     public function user()

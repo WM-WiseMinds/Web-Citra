@@ -29,6 +29,10 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Tanggal Booking</td>
                 <td class="border px-4 py-2">{{ $row->tanggal_booking }}</td>
             </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Status Booking</td>
+                <td class="border px-4 py-2">{{ $row->status }}</td>
+            </tr>
         </tbody>
     </table>
 </div>
