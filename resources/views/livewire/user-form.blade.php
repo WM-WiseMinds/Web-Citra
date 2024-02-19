@@ -11,6 +11,28 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <div class="mb-4">
+                    <label for="exampleFormControlInput2"
+                        class="block text-gray-700 text-sm font-bold mb-2">Alamat</label>
+                    <input type="text"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="exampleFormControlInput2" placeholder="Enter Alamat" wire:model="alamat">
+                    @error('alamat')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="exampleFormControlInput2" class="block text-gray-700 text-sm font-bold mb-2">No
+                        HP</label>
+                    <input type="text"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="exampleFormControlInput2" placeholder="Enter No HP" wire:model="no_hp">
+                    @error('no_hp')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
                 <div class="mb-4">
                     <label for="exampleFormControlInput2"
                         class="block text-gray-700 text-sm font-bold mb-2">Email</label>
@@ -45,15 +67,15 @@
                 <div class="mb-4">
                     <label for="exampleFormControlInput4"
                         class="block text-gray-700 text-sm font-bold mb-2">Role</label>
-                    <select wire:model="role_id"
+                    <select wire:model="role_name"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="exampleFormControlInput4">
                         <option value="">Choose Role</option>
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
                         @endforeach
                     </select>
-                    @error('role_id')
+                    @error('role_name')
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </div>

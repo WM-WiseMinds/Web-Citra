@@ -2,20 +2,22 @@
 
 namespace App\Livewire;
 
-use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toastable;
+use Spatie\Permission\Models\Role;
 
 class UserForm extends ModalComponent
 {
-    public $user, $name, $email, $password, $password_confirmation, $user_id, $roles, $role_id;
+    use Toastable;
+    public $user, $name, $email, $password, $password_confirmation, $user_id, $roles, $alamat, $no_hp, $role_name;
 
     public function render()
     {
         $users = User::all();
-        $roles = Roles::all();
+        $roles = Role::all();
         return view('livewire.user-form', compact('users', 'roles'));
     }
 
@@ -25,15 +27,20 @@ class UserForm extends ModalComponent
         $this->email = '';
         $this->password = '';
         $this->password_confirmation = '';
-        $this->role_id = '';
+        $this->alamat = '';
+        $this->no_hp = '';
+        $this->role_name = '';
     }
 
     public function store()
     {
         $rules = [
             'name' => 'required|min:3',
-            'role_id' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'role_name' => 'required',
             'password' => 'required|min:6|confirmed',
+            'alamat' => 'required',
+            'no_hp' => 'required',
         ];
 
         if ($this->user_id) {
@@ -52,35 +59,41 @@ class UserForm extends ModalComponent
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => bcrypt($this->password),
-                'role_id' => $this->role_id,
+                'alamat' => $this->alamat,
+                'no_hp' => $this->no_hp,
             ]);
+            $user->syncRoles($this->role_name);
         } else {
             $user = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => bcrypt($this->password),
-                'role_id' => $this->role_id,
+                'alamat' => $this->alamat,
+                'no_hp' => $this->no_hp,
             ]);
+            $user->assignRole($this->role_name);
         }
-
-        session()->flash('message', $this->user ? 'User updated.' : 'User created.');
 
         $this->closeModalWithEvents([
             UserTable::class => 'userUpdated',
         ]);
+
+        $this->success($user->wasRecentlyCreated ? 'User berhasil dibuat' : 'User berhasil diubah');
 
         $this->resetCreateForm();
     }
 
     public function mount($rowId = null)
     {
-        $this->roles = Roles::all();
+        $this->roles = Role::all();
         if (!is_null($rowId)) {
             $this->user = User::find($rowId);
             $this->user_id = $this->user->id;
             $this->name = $this->user->name;
             $this->email = $this->user->email;
-            $this->role_id = $this->user->role_id;
+            $this->alamat = $this->user->alamat;
+            $this->no_hp = $this->user->no_hp;
+            $this->role_name = $this->user->roles->pluck('name')->first();
         }
     }
 }
