@@ -34,7 +34,7 @@ class User extends Authenticatable
         'alamat',
         'status',
         'password',
-        
+
     ];
 
     /**
@@ -43,7 +43,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-     // Atribut 'hidden' digunakan untuk menyembunyikan atribut dari model ketika model diubah menjadi array atau JSON.
+    // Atribut 'hidden' digunakan untuk menyembunyikan atribut dari model ketika model diubah menjadi array atau JSON.
     protected $hidden = [
         'password',
         'remember_token',
@@ -57,7 +57,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
 
-     // Atribut 'casts' digunakan untuk mengubah tipe data atribut dari model.
+    // Atribut 'casts' digunakan untuk mengubah tipe data atribut dari model.
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -68,18 +68,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-     // atribut 'appends' digunakan untuk menambahkan atribut ke array model.
+    // atribut 'appends' digunakan untuk menambahkan atribut ke array model.
     protected $appends = [
         'profile_photo_url',
     ];
-
-    // Metode 'role()' digunakan untuk mendefinisikan hubungan antara model ini dengan model 'Roles'.
-    // Model ini akan memiliki satu relasi 'belongsTo' dengan 'Roles', dimana 'role_id' adalah kunci asing yang digunakan.
-    public function role()
-    {
-        // Relasi one-to-many dengan model Roles
-        return $this->belongsTo(Roles::class, 'role_id');
-    }
 
     // Metode 'bookingservice()' digunakan untuk mendefinisikan hubungan antara model ini dengan model 'Bookingservice'.
     // Model ini akan memiliki satu relasi 'hasMany' dengan 'Bookingservice', yang berarti satu pengguna dapat memiliki banyak booking service.
