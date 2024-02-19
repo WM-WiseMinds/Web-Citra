@@ -7,11 +7,7 @@
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Nama</td>
-                <td class="border px-4 py-2">{{ $row->user->name}}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Jenis Barang</td>
-                <td class="border px-4 py-2">{{ $row->jenis_barang}}</td>
+                <td class="border px-4 py-2">{{ $row->user->name }}</td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">No Hp</td>
@@ -22,20 +18,16 @@
                 <td class="border px-4 py-2">{{ $row->user->alamat }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Jenis Barang</td>
+                <td class="border px-4 py-2">{{ $row->jenis_barang }}</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Kerusakan</td>
                 <td class="border px-4 py-2">{{ $row->kerusakan }}</td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Tanggal Booking</td>
                 <td class="border px-4 py-2">{{ $row->tanggal_booking }}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Jumlah</td>
-                <td class="border px-4 py-2">{{ $row->transaksi->jumlah }}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Biaya</td>
-                <td class="border px-4 py-2">{{ $row->transaksi->biaya }}</td>
             </tr>
         </tbody>
     </table>
