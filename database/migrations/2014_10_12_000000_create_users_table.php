@@ -21,9 +21,8 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('no_hp', 20)->nullable();
-            $table->text('alamat' )->nullable();
+            $table->text('alamat')->nullable();
             $table->enum('status', ['Aktif', 'Non-Aktif']);
-            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamps();
         });
     }
