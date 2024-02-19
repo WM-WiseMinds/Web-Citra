@@ -29,14 +29,12 @@ class User extends Authenticatable
 
     // Atribut 'fillable' digunakan untuk menentukan atribut mana saja yang dapat diisi massal.
     protected $fillable = [
-        'role_id',
         'name',
         'email',
         'no_hp',
         'alamat',
         'status',
         'password',
-
     ];
 
     /**
