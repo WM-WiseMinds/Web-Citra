@@ -12,7 +12,7 @@ use Spatie\Permission\Models\Role;
 class UserForm extends ModalComponent
 {
     use Toastable;
-    public $user, $name, $email, $password, $password_confirmation, $user_id, $roles, $alamat, $no_hp, $role_name;
+    public $user, $name, $email, $password, $password_confirmation, $user_id, $roles, $alamat, $no_hp, $role_name, $status;
 
     public function render()
     {
@@ -41,6 +41,7 @@ class UserForm extends ModalComponent
             'password' => 'required|min:6|confirmed',
             'alamat' => 'required',
             'no_hp' => 'required',
+            'status' => 'required',
         ];
 
         if ($this->user_id) {
@@ -61,6 +62,7 @@ class UserForm extends ModalComponent
                 'password' => bcrypt($this->password),
                 'alamat' => $this->alamat,
                 'no_hp' => $this->no_hp,
+                'status' => $this->status,
             ]);
             $user->syncRoles($this->role_name);
         } else {
@@ -70,6 +72,7 @@ class UserForm extends ModalComponent
                 'password' => bcrypt($this->password),
                 'alamat' => $this->alamat,
                 'no_hp' => $this->no_hp,
+                'status' => $this->status,
             ]);
             $user->assignRole($this->role_name);
         }
@@ -86,6 +89,7 @@ class UserForm extends ModalComponent
     public function mount($rowId = null)
     {
         $this->roles = Role::all();
+        $this->status = 'Aktif';
         if (!is_null($rowId)) {
             $this->user = User::find($rowId);
             $this->user_id = $this->user->id;
@@ -93,6 +97,7 @@ class UserForm extends ModalComponent
             $this->email = $this->user->email;
             $this->alamat = $this->user->alamat;
             $this->no_hp = $this->user->no_hp;
+            $this->status = $this->user->status;
             $this->role_name = $this->user->roles->pluck('name')->first();
         }
     }

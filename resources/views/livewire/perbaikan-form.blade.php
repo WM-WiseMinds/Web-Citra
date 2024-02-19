@@ -3,45 +3,58 @@
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="">
                 <div class="mb-4">
-                    <label for="exampleFormControlInput1"
-                        class="block text-gray-700 text-sm font-bold mb-2">Nama</label>
-                        
-                        @if ($user)
-                        <select wire:model="user_id" 
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Pilih Roles">
-                            <option value="" readonly>-- Pilih Nama --
-                            </option>
-                            @foreach ($user as $usr)
-                            <option value="{{ $usr->id }}">{{ $usr->name }}</option>
-                            @endforeach
-                        </select>
-                        @endif
-                        @error('name')
+                    <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Penanggung
+                        Jawab</label>
+                    <input type="hidden"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="exampleFormControlInput1" placeholder="Enter keterangan" wire:model="user_id">
+                    <input type="text"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="exampleFormControlInput1" placeholder="Enter keterangan" wire:model="user_name" readonly>
+                    @error('name')
                         <span class="text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label for="exampleFormControlInput1"
-                            class="block text-gray-700 text-sm font-bold mb-2">Barang</label>
-    
-                        @if ($bookingservice)
-                            <select wire:model="bookingservice_id" 
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Pilih Roles">
-                                <option value="" readonly>-- Pilih Barang --
-                                </option>
-                                @foreach ($bookingservice as $booking)
-                                    <option value="{{ $booking->id }}">{{ $booking->jenis_barang }}</option>
-                                @endforeach
-                            </select>
-                        @endif
-                        @error('name')
-                            <span class="text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label for="exampleFormControlInput1"
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Nama
+                        Customer</label>
+
+                    <select wire:model="bookingservice_id" wire:change="getDetailBookingService($event.target.value)"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Pilih Roles">
+                        <option value="" readonly selected>-- Pilih Customer --
+                        </option>
+                        @foreach ($booking_service as $booking)
+                            <option value="{{ $booking->id }}">{{ $booking->user->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('name')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Jenis
+                        Barang</label>
+                    <input type="text"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="exampleFormControlInput1" placeholder="Enter jenis Barang" wire:model="jenis_barang"
+                        readonly>
+                    @error('jenis_barang')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="exampleFormControlInput1"
+                        class="block text-gray-700 text-sm font-bold mb-2">Kerusakan</label>
+                    <input type="text"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="exampleFormControlInput1" placeholder="Enter kerusakan" wire:model="kerusakan" readonly>
+                    @error('kerusakan')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="exampleFormControlInput1"
                         class="block text-gray-700 text-sm font-bold mb-2">Keterangan</label>
                     <input type="text"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -53,24 +66,9 @@
                 <div class="mb-4">
                     <label for="exampleFormControlInput1"
                         class="block text-gray-700 text-sm font-bold mb-2">Persetujuan</label>
-                        {{-- membuat Form Select Untuk enum Perbaiki, Tidak --}}
-                    <select wire:model="persetujuan"
+                    <input type="text"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="exampleFormControlInput1" placeholder="Persetujuan">
-                        <option value=""  readonly>-- Pilih Persetujuan --</option>
-                        <option value="Perbaiki">Perbaiki</option>
-                        <option value="Tidak">Tidak</option>
-                    </select>
-                    @error('tanggal_booking')
-                        <span class="text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="exampleFormControlInput1"
-                        class="block text-gray-700 text-sm font-bold mb-2">Tanggal Booking</label>
-                    <input type="date"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="exampleFormControlInput1" placeholder="Enter tanggal_booking" wire:model="tanggal_booking">
+                        id="exampleFormControlInput1" placeholder="Enter keterangan" wire:model="persetujuan" readonly>
                     @error('tanggal_booking')
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror

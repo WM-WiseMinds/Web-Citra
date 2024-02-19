@@ -28,41 +28,39 @@ final class PerbaikanTable extends PowerGridComponent
     {
         $this->showCheckBox();
 
-        return [
-            Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+        $setUp = [
             Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
             Detail::make()
-                ->showCollapseIcon()
                 ->view('details.perbaikan-detail')
+                ->showCollapseIcon()
         ];
+
+        if (auth()->user()->can('export')) {
+            $setUp[] = Exportable::make('export')
+                ->striped()
+                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV);
+        }
+
+        return $setUp;
     }
 
     public function datasource(): Builder
     {
-        return Perbaikan::with(['user', 'bookingservice', 'detailperbaikan']);
-        // return Perbaikan::query()
-        //     ->join('users', function ($users) {
-        //         $users->on('perbaikan.user_id', '=', 'users.id');
-        //     })
-        //     ->join('bookingservice', function ($bookingservice) {
-        //         $bookingservice->on('perbaikan.bookingservice_id', '=', 'bookingservice.id');
-        //     })
-        //     ->join('detailperbaikan', function ($detailperbaikan) {
-        //         $detailperbaikan->on('perbaikan.id', '=', 'detailperbaikan.perbaikan_id');
-        //     })
-        //     ->select([
-        //         'perbaikan.id',
-        //         'perbaikan.persetujuan',
-        //         'users.name as user_name',
-        //         'bookingservice.jenis_barang as jenis_barang',
-        //         'bookingservice.kerusakan as kerusakan',
-        //         'detailperbaikan.status',
-        //     ]);
+        // return Perbaikan::with(['user', 'bookingservice', 'detailperbaikan']);
+
+        $query = Perbaikan::query()
+            ->with(['user', 'bookingservice', 'detailperbaikan']);
+
+        // Cek role pengguna yang login
+        if (auth()->user()->hasRole('pelanggan')) {
+            // Batasi data hanya untuk booking service pengguna tersebut
+            $query->where('user_id', auth()->id());
+        }
+
+        return $query;
     }
 
     public function relationSearch(): array
@@ -78,10 +76,10 @@ final class PerbaikanTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('persetujuan')
             ->add('user.name')
             ->add('bookingservice.jenis_barang')
-            ->add('bookingservice.kerusakan');
+            ->add('bookingservice.kerusakan')
+            ->add('persetujuan');
     }
 
     public function columns(): array
@@ -102,27 +100,18 @@ final class PerbaikanTable extends PowerGridComponent
             Column::make('Persetujuan', 'persetujuan')
                 ->searchable()
                 ->sortable(),
-            Column::make('Detail Perbaikan', 'detail_perbaikan_summary')
-                ->sortable(),
-            // Column::make('Status', 'detailperbaikan.status')
-            //     ->searchable()
-            //     ->sortable(),
-            // Column::make('Biaya', 'detailperbaikan.biaya')
-            //     ->searchable()
-            //     ->sortable(),
             Column::action('Action')
         ];
     }
 
     public function filters(): array
     {
-        return [];
-    }
-
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert(' . $rowId . ')');
+        return [
+            Filter::select('persetujuan', 'persetujuan')
+                ->dataSource(Perbaikan::all()->unique('persetujuan'))
+                ->optionValue('persetujuan')
+                ->optionLabel('persetujuan')
+        ];
     }
 
     public function actions(Perbaikan $row): array

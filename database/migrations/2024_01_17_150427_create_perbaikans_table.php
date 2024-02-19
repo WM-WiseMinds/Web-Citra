@@ -14,17 +14,17 @@ return new class extends Migration
         // Membuat tabel 'perbaikans' untuk menyimpan data perbaikan
         Schema::create('perbaikan', function (Blueprint $table) {
             // Kolom ID unik sebagai primary key untuk setiap perbaikan
-            $table->id(); 
+            $table->id();
             // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Kolom ID pemesanan yang terkait dengan tabel 'bookingservices' dengan aksi onDelete 'cascade'
             $table->foreignId('bookingservice_id')->constrained('bookingservice')->onDelete('cascade');
             // Kolom keterangan perbaikan
-            $table->text('keterangan'); 
+            $table->text('keterangan');
             // Kolom persetujuan perbaikan
-            $table->enum('persetujuan', ['Perbaiki', 'Tidak' ]); 
+            $table->enum('persetujuan', ['Perbaiki', 'Tidak', 'Menunggu'])->default('Menunggu');
             // Kolom timestamp otomatis untuk pembuatan dan pembaruan
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 
