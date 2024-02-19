@@ -2,20 +2,23 @@
 
 namespace App\Livewire;
 
-use App\Models\Permissions;
-use App\Models\Roles;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toastable;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesForm extends ModalComponent
 {
+    use Toastable;
+
     public $roles, $id, $name, $permissions;
     public $permissions_id = [];
 
     public function render()
     {
-        $permissions = Permissions::all(); // This ensures $permissions is always set
-        $roles = Roles::all();
+        $permissions = Permission::all(); // This ensures $permissions is always set
+        $roles = Role::all();
         return view('livewire.roles-form', compact('permissions', 'roles'));
     }
 
@@ -32,34 +35,35 @@ class RolesForm extends ModalComponent
             'permissions_id' => 'required|array',
         ]);
 
-        if ($this->id) {
-            $role = Roles::find($this->id);
-            $role->update([
-                'name' => $this->name,
-            ]);
-            $role->permissions()->sync($this->permissions_id);
-        } else {
-            $role = Roles::create([
-                'name' => $this->name,
-            ]);
-            $role->permissions()->attach($this->permissions_id);
-        }
+        $role = Role::updateOrCreate(
+            ['id' => $this->id],
+            ['name' => $this->name, 'guard_name' => 'web']
+        );
 
-        session()->flash('message', $this->roles ? 'Roles updated.' : 'Roles created.');
+        // Dapatkan semua permissions berdasarkan id dan pastikan mereka menggunakan guard yang sama dengan role
+        $permissions = Permission::whereIn('id', $this->permissions_id)->where('guard_name', 'web')->get();
+
+        // Menggunakan syncPermissions untuk menyinkronkan permissions.
+        // Ini akan menghapus semua permissions yang sebelumnya terkait dengan role ini dan menggantinya dengan yang baru.
+        $role->syncPermissions($permissions);
 
         $this->closeModalWithEvents([
             RolesTable::class => 'rolesUpdated',
         ]);
 
+        $this->success($role->wasRecentlyCreated ? 'Role telah berhasil dibuat.' : 'Role telah berhasil diupdate.');
+
         $this->resetCreateForm();
+
+        $this->dispatch('roles-updated');
     }
 
     public function mount($rowId = null)
     {
-        $this->permissions = Permissions::all();
+        $this->permissions = Permission::all();
         if (!is_null($rowId)) {
-            $this->permissions = Permissions::all();
-            $roles = Roles::findOrFail($rowId);
+            $this->permissions = Permission::all();
+            $roles = Role::findOrFail($rowId);
             $this->id = $rowId;
             $this->name = $roles->name;
             $this->permissions_id = $roles->permissions->pluck('id')->toArray();
