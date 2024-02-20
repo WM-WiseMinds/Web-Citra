@@ -22,16 +22,18 @@
 <body class="font-sans antialiased">
     <x-banner />
 
-    <div class="flex h-screen bg-gray-100" x-data="{ open: false }">
+    <x-toaster-hub />
+
+    <div class="flex h-screen bg-gray-100 overflow-x-auto" x-data="{ open: false }">
         @livewire('navigation-menu')
 
         <!-- Page Heading -->
         <div class="flex flex-col flex-1 w-full">
             @if (isset($header))
-                <header class="z-10 py-4 bg-white shadow-md">
+                <header class="z-10 py-4 bg-orange-500 shadow-md">
                     <div
                         class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
-                        <div class="-me-2 flex items-center md:hidden">
+                        <div class="-me-2 flex items-center lg:hidden">
                             <button @click="open = !open"
                                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -48,6 +50,15 @@
                         {{ $header }}
 
                         <ul class="flex">
+                            <a href="{{ url('/') }}" class="mx-1 my-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FFFF"
+                                    class="w-6 h-6">
+                                    <path
+                                        d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                                    <path
+                                        d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                                </svg>
+                            </a>
                             <div class="ms-3 relative">
                                 <x-dropdown align="right" width="48">
                                     <x-slot name="trigger">
@@ -118,16 +129,10 @@
     </div>
 
     @stack('modals')
+    @livewire('wire-elements-modal')
 
+    @wireUiScripts
     @livewireScripts
 </body>
-
-<script>
-    document.addEventListener('alpine:init', function() {
-        Alpine.store('navbar', {
-            open: false,
-        });
-    });
-</script>
 
 </html>

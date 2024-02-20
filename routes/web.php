@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\BookingService;
+use App\Models\Perbaikan;
+use App\Models\Review;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,12 +20,51 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/gallery', function () {
+    return view('gallery');
+});
+
+Route::get('/reviews', function () {
+    $review = Review::all();
+    return view('reviews', compact('review'));
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $bookingCount = BookingService::count();
+        $perbaikanCount = Perbaikan::count();
+        $reviewCount = Review::count();
+        return view('dashboard', compact('bookingCount', 'perbaikanCount', 'reviewCount'));
     })->name('dashboard');
+    Route::get('/permissions', function () {
+        return view('permissions');
+    })->name('permissions');
+
+    Route::get('/roles', function () {
+        return view('roles');
+    })->name('roles');
+
+    Route::get('/users', function () {
+        return view('users');
+    })->name('users');
+
+    Route::get('/bookingservice', function () {
+        return view('bookingservice');
+    })->name('bookingservice');
+
+    Route::get('/perbaikan', function () {
+        return view('perbaikan');
+    })->name('perbaikan');
+
+    Route::get('/transaksi', function () {
+        return view('transaksi');
+    })->name('transaksi');
+
+    Route::get('/review', function () {
+        return view('review');
+    })->name('review');
 });
