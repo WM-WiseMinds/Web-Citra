@@ -49,8 +49,8 @@ class Perbaikan extends Model
     // Untuk menghubungkan model perbaikan dengan model review melalui relasi one-to-many
     public function review()
     {
-        // Relasi one-to-many dengan menggunakan atribut hasOne yang akan di hubungkan dengan model Review
-        return $this->hasMany(Review::class);
+        // Relasi one-to-one dengan menggunakan atribut hasOne yang akan di hubungkan dengan model Review
+        return $this->hasOne(Review::class);
     }
 
     public function updateTransaksi()

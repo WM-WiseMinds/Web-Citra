@@ -13,8 +13,7 @@ class TransaksiForm extends ModalComponent
 
     public function render()
     {
-        $user = User::all();
-        return view('livewire.transaksi-form', compact('user'));
+        return view('livewire.transaksi-form');
     }
 
     public function resetCreateForm()
@@ -63,8 +62,6 @@ class TransaksiForm extends ModalComponent
             $this->jumlah = $transaksi->jumlah;
             $this->total_biaya = $transaksi->total_biaya;
             $this->user_id = $transaksi->user_id;
-
-        
         }
     }
 }

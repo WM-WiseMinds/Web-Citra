@@ -17,11 +17,10 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomNumber('1','4'),
-            'bookingservice_id' => $this->faker->randomNumber('1','4'),
-            'rating' => $this->faker->randomNumber('1','5'),
+            'user_id' => $this->faker->randomNumber('1', '4'),
+            'perbaikan_id' => $this->faker->randomNumber('1', '4'),
+            'rating' => $this->faker->randomNumber('1', '5'),
             'comment' => $this->faker->text,
-            'review_date' => $this->faker->date('Y-m-d'),
         ];
     }
 }

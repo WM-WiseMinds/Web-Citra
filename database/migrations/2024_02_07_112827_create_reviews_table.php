@@ -16,13 +16,12 @@ return new class extends Migration
             // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Kolom ID layanan yang terkait dengan tabel 'bookingservice' dengan aksi onDelete 'cascade'
-            $table->foreignId('bookingservice_id')->constrained('bookingservice')->onDelete('cascade');
+            $table->foreignId('perbaikan_id')->constrained('perbaikan')->onDelete('cascade');
             // Kolom rating yang berisi angka
             $table->integer('rating');
             // Kolom komentar yang berisi teks
             $table->text('comment');
-            // Kolom review_date yang berisi tanggal
-            $table->date('review_date');
+            // Kolom created_at dan updated_at yang berisi tanggal dan waktu
             $table->timestamps();
         });
     }

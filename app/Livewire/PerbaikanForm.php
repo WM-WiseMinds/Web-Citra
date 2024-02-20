@@ -131,24 +131,6 @@ class PerbaikanForm extends ModalComponent
         $this->kerusakan = $booking_service->kerusakan;
     }
 
-    // protected function hitungJumlahDetailPerbaikan($perbaikanId)
-    // {
-    //     $jumlah = DetailPerbaikan::where('perbaikan_id', $perbaikanId)->count();
-    //     return $jumlah;
-    // }
-
-    // protected function hitungTotalBiaya($perbaikanId)
-    // {
-    //     $perbaikan = Perbaikan::find($perbaikanId);
-    //     $totalBiaya = 0;
-
-    //     foreach ($perbaikan->detailPerbaikan as $detail) {
-    //         $totalBiaya += $detail->biaya;
-    //     }
-
-    //     return $totalBiaya;
-    // }
-
     protected function createOrUpdateTransaksi()
     {
         $jumlahDetailPerbaikan = DetailPerbaikan::where('perbaikan_id', $this->perbaikan->id)->count();

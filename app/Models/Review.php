@@ -13,10 +13,9 @@ class Review extends Model
 
     protected $fillable = [
         'user_id',
-        'bookingservice_id',
+        'perbaikan_id',
         'rating',
         'comment',
-        'review_date'
     ];
 
     // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah user maka dari itu di hubungkan dengan model User
@@ -26,12 +25,10 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Relasi one-to-one dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah bookingservice maka dari itu di hubungkan dengan model Bookingservice
-    public function bookingservice()
+    // Relasi one-to-one dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah perbaikan maka dari itu di hubungkan dengan model Perbaikan
+    public function perbaikan()
     {
-        // Relasi one-to-one dengan model Bookingservice
-        return $this->belongsTo(Bookingservice::class);
+        // Relasi one-to-one dengan model Perbaikan
+        return $this->belongsTo(Perbaikan::class);
     }
-
-
 }
