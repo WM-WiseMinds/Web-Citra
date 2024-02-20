@@ -15,7 +15,8 @@
             @foreach ($datasource as $perbaikan)
                 <tr>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $perbaikan->id }}</td>
-                    <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $perbaikan->user->name }}
+                    <td style="border: 1px solid black; padding: 5px; text-align: left;">
+                        {{ $perbaikan->bookingservice->user->name }}
                     </td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">
                         {{ $perbaikan->bookingservice->jenis_barang }}</td>
