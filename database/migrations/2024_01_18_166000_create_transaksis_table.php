@@ -11,25 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-    // Membuat tabel 'transaksis' untuk menyimpan data transaksi
-    Schema::create('transaksi', function (Blueprint $table) {
-        // Kolom ID unik untuk setiap transaksi
-        $table->id(); 
-        // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
-        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-        // Kolom Id detail perbaikan yang terkait dengan tabel 'detailperbaikan' dengan aksi onDelete 'cascade'
-        $table->foreignId('detailperbaikan_id')->constrained('detailperbaikan')->onDelete('cascade');
-        // Kolom Id booking service yang terkait dengan tabel 'bookingservice' dengan aksi onDelete 'cascade'
-        $table->foreignId('bookingservice_id')->constrained('bookingservice')->onDelete('cascade');
-        // Kolom biaya per item
-        $table->integer('biaya' ); 
-        // Kolom jumlah item yang dibeli
-        $table->integer('jumlah'); 
-        // Kolom total biaya transaksi
-        $table->integer('total_biaya' ); 
-        // Kolom timestamp otomatis untuk pembuatan dan pembaruan
-        $table->timestamps(); 
-    });
+        // Membuat tabel 'transaksis' untuk menyimpan data transaksi
+        Schema::create('transaksi', function (Blueprint $table) {
+            // Kolom ID unik untuk setiap transaksi
+            $table->id();
+            // Kolom ID pengguna yang terkait dengan tabel 'users' dengan aksi onDelete 'cascade'
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Kolom Id detail perbaikan yang terkait dengan tabel 'perbaikan' dengan aksi onDelete 'cascade'
+            $table->foreignId('perbaikan_id')->constrained('perbaikan')->onDelete('cascade');
+            // Kolom Id booking service yang terkait dengan tabel 'bookingservice' dengan aksi onDelete 'cascade'
+            $table->foreignId('bookingservice_id')->constrained('bookingservice')->onDelete('cascade');
+            // Kolom biaya per item
+            $table->integer('biaya');
+            // Kolom jumlah item yang dibeli
+            $table->integer('jumlah');
+            // Kolom total biaya transaksi
+            $table->integer('total_biaya');
+            // Kolom timestamp otomatis untuk pembuatan dan pembaruan
+            $table->timestamps();
+        });
     }
 
     /**

@@ -39,11 +39,18 @@ class Perbaikan extends Model
         // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang di tuju adalah  Bookingservice  maka dari itu di hubungkan dengan model BookingService
         return $this->belongsTo(BookingService::class);
     }
-    //untuk menghubungkan model perbaikan dengan model transaksi melalui relasi one-to-many
+    //untuk menghubungkan model perbaikan dengan model transaksi melalui relasi one-to-one
     public function transaksi()
     {
-        // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang di tuju adalah  transaksi  maka dari itu di hubungkan dengan model Transaksi
-        return $this->belongsTo(Transaksi::class);
+        // Relasi one-to-one dengan menggunakan atribut hasMany yang akan di hubungkan dengan model Transaksi
+        return $this->hasOne(Transaksi::class);
+    }
+
+    // Untuk menghubungkan model perbaikan dengan model review melalui relasi one-to-many
+    public function review()
+    {
+        // Relasi one-to-many dengan menggunakan atribut hasOne yang akan di hubungkan dengan model Review
+        return $this->hasMany(Review::class);
     }
 
     public function getDetailPerbaikanSummaryAttribute()

@@ -17,12 +17,12 @@ class TransaksiFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomNumber('1','5'),
-            'detailperbaikan_id' => $this->faker->randomNumber('1','10'),
-            'bookingservice_id' => $this->faker->randomNumber('1','9'),
-            'biaya' => $this->faker->randomNumber('1','6'),
-            'jumlah' => $this->faker->randomNumber('1','8'),
-            'total_biaya' => $this->faker->randomNumber('1','7'),
+            'user_id' => $this->faker->randomNumber('1', '5'),
+            'perbaikan_id' => $this->faker->randomNumber('1', '10'),
+            'bookingservice_id' => $this->faker->randomNumber('1', '9'),
+            'biaya' => $this->faker->randomNumber('1', '6'),
+            'jumlah' => $this->faker->randomNumber('1', '8'),
+            'total_biaya' => $this->faker->randomNumber('1', '7'),
         ];
     }
 }
