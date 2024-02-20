@@ -201,6 +201,7 @@ final class PerbaikanTable extends PowerGridComponent
                 'exportPdf',
                 'delete',
                 'perbaikanUpdated' => '$refresh',
+                'detailPerbaikanUpdated' => '$refresh',
             ]
         );
     }
@@ -229,5 +230,12 @@ final class PerbaikanTable extends PowerGridComponent
         $perbaikan = Perbaikan::findOrFail($rowId);
         $perbaikan->delete();
         $this->success('Perbaikan berhasil dihapus');
+    }
+
+    public function deleteDetailPerbaikan($detail_perbaikan_id)
+    {
+        $detailPerbaikan = DetailPerbaikan::findOrFail($detail_perbaikan_id);
+        $detailPerbaikan->delete();
+        $this->success('Detail perbaikan berhasil dihapus');
     }
 }

@@ -13,6 +13,7 @@ class DetailPerbaikanForm extends ModalComponent
     public DetailPerbaikan $detailPerbaikan;
     public $perbaikan_id, $biaya, $jenis_perbaikan;
     public $detailPerbaikanItems = [];
+    public $isUpdateMode = false;
 
     public function render()
     {
@@ -72,6 +73,7 @@ class DetailPerbaikanForm extends ModalComponent
     public function mount($detail_perbaikan_id = null, $perbaikan_id = null)
     {
         if ($detail_perbaikan_id) {
+            $this->isUpdateMode = true;
             $this->detailPerbaikan = DetailPerbaikan::find($detail_perbaikan_id);
             $this->perbaikan_id = $this->detailPerbaikan->perbaikan_id;
             $this->detailPerbaikanItems = [
@@ -83,6 +85,7 @@ class DetailPerbaikanForm extends ModalComponent
         } else {
             $this->detailPerbaikan = new DetailPerbaikan();
             $this->detailPerbaikanItems = [];
+            $this->isUpdateMode = false;
         }
         if ($perbaikan_id) {
             $this->perbaikan_id = $perbaikan_id;

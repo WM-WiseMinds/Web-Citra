@@ -39,17 +39,21 @@
                     </div>
 
                     <div class="mb-4">
-                        <button type="button" wire:click.prevent="removeDetailPerbaikanItem({{ $index }})"
-                            class="inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-red-600 text-base font-bold text-white hover:bg-red-700 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150">
-                            Remove Item
-                        </button>
+                        @if (!$isUpdateMode)
+                            <button type="button" wire:click.prevent="removeDetailPerbaikanItem({{ $index }})"
+                                class="inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-red-600 text-base font-bold text-white hover:bg-red-700 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150">
+                                Remove Item
+                            </button>
+                        @endif
                     </div>
                 @endforeach
                 <div class="mb-4">
-                    <button type="button" wire:click.prevent="addDetailPerbaikanItem"
-                        class="inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-green-600 text-base font-bold text-white hover:bg-emerald-800 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150">
-                        Add Item
-                    </button>
+                    @if (!$isUpdateMode)
+                        <button type="button" wire:click.prevent="addDetailPerbaikanItem"
+                            class="inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-green-600 text-base font-bold text-white hover:bg-emerald-800 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150">
+                            Add Item
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>

@@ -1,3 +1,12 @@
+@php
+    $total = 0;
+@endphp
+
+@foreach ($row->detailperbaikan as $detail)
+    @php
+        $total += $detail->biaya;
+    @endphp
+@endforeach
 <div class="p-2 bg-white border border-slate-200">
     <table class="table-auto w-full">
         <tbody>
@@ -37,6 +46,10 @@
                 <td class="border px-4 py-2 text-sm font-semibold">Keterangan</td>
                 <td class="border px-4 py-2">{{ $row->keterangan }}</td>
             </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Total</td>
+                <td class="border px-4 py-2">Rp {{ number_format($total, 0, ',', '.') }}</td>
+            </tr>
         </tbody>
     </table>
 
@@ -53,9 +66,9 @@
                 <tr>
                     <td class="border px-4 py-2">{{ $detail->jenis_perbaikan }}</td>
                     <td class="border px-4 py-2">Rp {{ number_format($detail->biaya, 0, ',', '.') }}</td>
-                    {{-- <td class="border px-4 py-2"> <!-- Add this cell -->
+                    <td class="border px-4 py-2"> <!-- Add this cell -->
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onclick="Livewire.dispatch('openModal', { component: 'ukuran-form', arguments: { ukuran_id: {{ $ukuran->id }} } })"><svg
+                            onclick="Livewire.dispatch('openModal', { component: 'detail-perbaikan-form', arguments: { detail_perbaikan_id: {{ $detail->id }} } })"><svg
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="w-5 h-5">
                                 <path
@@ -63,8 +76,9 @@
                             </svg>
                         </button>
                         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                            wire:click="deleteUkuran({{ $ukuran->id }})"><svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            wire:click="deleteDetailPerbaikan({{ $detail->id }})"><svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-5 h-5">
                                 <path
                                     d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
                                 <path fill-rule="evenodd"
@@ -72,7 +86,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </button>
-                    </td> --}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
