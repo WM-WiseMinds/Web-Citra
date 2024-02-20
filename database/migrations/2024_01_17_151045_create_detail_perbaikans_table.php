@@ -19,8 +19,6 @@ return new class extends Migration
             $table->foreignId('perbaikan_id')->constrained('perbaikan')->onDelete('cascade');
             // Kolom jenis perbaikan barang
             $table->string('jenis_perbaikan', 50);
-            // Kolom deskripsi status barang
-            $table->string('status', 20);
             // Kolom biaya barang
             $table->integer('biaya');
             //kolom Timestamp otomatis untuk pembuatan dan pembaruan

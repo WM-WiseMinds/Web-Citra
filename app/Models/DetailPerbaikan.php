@@ -18,7 +18,6 @@ class DetailPerbaikan extends Model
         'perbaikan_id',
         'jenis_perbaikan',
         'biaya',
-        'status',
     ];
     //untuk menghubungkan model detailperbaikan dengan model user melalui relasi one-to-many
     public function perbaikan()

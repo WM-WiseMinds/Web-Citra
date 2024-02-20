@@ -34,6 +34,7 @@ export default {
             colors: {
                 "pg-primary": colors.stone,
                 orange: colors.orange,
+                green: colors.green,
             },
         },
     },

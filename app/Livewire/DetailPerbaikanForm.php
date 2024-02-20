@@ -11,7 +11,7 @@ class DetailPerbaikanForm extends ModalComponent
     use Toastable;
 
     public DetailPerbaikan $detailPerbaikan;
-    public $perbaikan_id, $status, $biaya, $jenis_perbaikan;
+    public $perbaikan_id, $biaya, $jenis_perbaikan;
     public $detailPerbaikanItems = [];
 
     public function render()
@@ -23,7 +23,6 @@ class DetailPerbaikanForm extends ModalComponent
     {
         $this->detailPerbaikanItems[] = [
             'jenis_perbaikan' => $this->jenis_perbaikan,
-            'status' => $this->status,
             'biaya' => $this->biaya,
         ];
     }
@@ -38,22 +37,30 @@ class DetailPerbaikanForm extends ModalComponent
     {
         $this->perbaikan_id = '';
         $this->jenis_perbaikan = '';
-        $this->status = '';
         $this->biaya = '';
     }
 
     protected $rules = [
         'perbaikan_id' => 'required|exists:perbaikan,id',
         'detailPerbaikanItems.*.jenis_perbaikan' => 'required',
-        'detailPerbaikanItems.*.status' => 'required',
         'detailPerbaikanItems.*.biaya' => 'required|numeric',
     ];
 
     public function store()
     {
-        $validatedData = $this->validate();
-        $this->detailPerbaikan->fill($validatedData);
-        $this->detailPerbaikan->save();
+        $this->validate();
+
+        foreach ($this->detailPerbaikanItems as $item) {
+            if ($this->detailPerbaikan->exists) {
+                $this->detailPerbaikan->update($item);
+            } else {
+                $detailPerbaikan = new DetailPerbaikan();
+                $detailPerbaikan->perbaikan_id = $this->perbaikan_id;
+                $detailPerbaikan->fill($item);
+                $detailPerbaikan->save();
+            }
+        }
+
 
         $this->success($this->detailPerbaikan->wasRecentlyCreated ? 'Detail Perbaikan berhasil ditambahkan' : 'Detail Perbaikan berhasil diubah');
         $this->closeModalWithEvents([
@@ -62,18 +69,20 @@ class DetailPerbaikanForm extends ModalComponent
         $this->resetCreateForm();
     }
 
-    public function mount($rowId = null, $perbaikan_id = null)
+    public function mount($detail_perbaikan_id = null, $perbaikan_id = null)
     {
-        if ($rowId) {
-            $this->detailPerbaikan = DetailPerbaikan::find($rowId);
+        if ($detail_perbaikan_id) {
+            $this->detailPerbaikan = DetailPerbaikan::find($detail_perbaikan_id);
             $this->perbaikan_id = $this->detailPerbaikan->perbaikan_id;
             $this->detailPerbaikanItems = [
                 [
                     'jenis_perbaikan' => $this->detailPerbaikan->jenis_perbaikan,
-                    'status' => $this->detailPerbaikan->status,
                     'biaya' => $this->detailPerbaikan->biaya,
                 ]
             ];
+        } else {
+            $this->detailPerbaikan = new DetailPerbaikan();
+            $this->detailPerbaikanItems = [];
         }
         if ($perbaikan_id) {
             $this->perbaikan_id = $perbaikan_id;

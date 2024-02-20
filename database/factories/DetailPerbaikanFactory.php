@@ -19,8 +19,7 @@ class DetailPerbaikanFactory extends Factory
         return [
             'perbaikan_id' => $this->faker->randomNumber('1', '4'),
             'jenis_perbaikan' => $this->faker->word,
-            'status' => $this->faker->word,
-            'biaya' => $this->faker->randomNumber('1', '6'),
+            'biaya' => $this->faker->randomNumber('5'),
         ];
     }
 }
