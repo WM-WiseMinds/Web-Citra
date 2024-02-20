@@ -19,10 +19,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Kolom Id detail perbaikan yang terkait dengan tabel 'perbaikan' dengan aksi onDelete 'cascade'
             $table->foreignId('perbaikan_id')->constrained('perbaikan')->onDelete('cascade');
-            // Kolom Id booking service yang terkait dengan tabel 'bookingservice' dengan aksi onDelete 'cascade'
-            $table->foreignId('bookingservice_id')->constrained('bookingservice')->onDelete('cascade');
-            // Kolom biaya per item
-            $table->integer('biaya');
             // Kolom jumlah item yang dibeli
             $table->integer('jumlah');
             // Kolom total biaya transaksi

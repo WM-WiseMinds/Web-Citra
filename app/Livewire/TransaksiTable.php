@@ -26,10 +26,7 @@ final class TransaksiTable extends PowerGridComponent
     {
         $this->showCheckBox();
 
-        return [
-            Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+        $setUp = [
             Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
@@ -38,21 +35,26 @@ final class TransaksiTable extends PowerGridComponent
                 ->showCollapseIcon()
                 ->view('details.transaksi-detail'),
         ];
+
+        if (auth()->user()->can('export transaksi')) {
+            $setUp[] = Exportable::make('export')
+                ->striped()
+                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV);
+        }
+
+        return $setUp;
     }
 
     public function datasource(): Builder
     {
-         
-        return Transaksi::query()
-        ->leftJoin('users', 'transaksi.user_id', '=', 'users.id')
-        ->select('transaksi.*', 'users.name as user_name')
-        ;
+
+        return Transaksi::query()->with(['user', 'perbaikan']);
     }
 
     public function relationSearch(): array
     {
         return [
-            'user' => ['name', 'no_hp', 'alamat'],
+            'user' => ['name'],
         ];
     }
 
@@ -60,12 +62,10 @@ final class TransaksiTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('user_id')
-            ->add('biaya')
+            ->add('user.name')
             ->add('jumlah')
             ->add('total_biaya')
-            ->add('users_name');
-            ;
+            ->add('created_at_formatted', fn ($row) => Carbon::parse($row->created_at)->format('d-m-Y'));
     }
 
     public function columns(): array
@@ -74,11 +74,7 @@ final class TransaksiTable extends PowerGridComponent
             Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
-            Column::make('Name', 'user_name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Biaya', 'biaya')
+            Column::make('Name', 'user.name')
                 ->sortable()
                 ->searchable(),
 
@@ -89,6 +85,9 @@ final class TransaksiTable extends PowerGridComponent
             Column::make('Total biaya', 'total_biaya')
                 ->sortable()
                 ->searchable(),
+
+            Column::make('Tanggal Transaksi', 'created_at_formatted')
+                ->sortable(),
             Column::action('Action')
         ];
     }
@@ -96,13 +95,13 @@ final class TransaksiTable extends PowerGridComponent
     public function filters(): array
     {
         return [
+            Filter::select('user.name', 'user_id')
+                ->dataSource(Transaksi::with('user')->get()->map(function ($transaksi) {
+                    return ['id' => $transaksi->user_id, 'name' => $transaksi->user->name];
+                })->unique('id'))
+                ->optionValue('id')
+                ->optionLabel('name'),
         ];
-    }
-
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert('.$rowId.')');
     }
 
     public function actions(\App\Models\Transaksi $row): array

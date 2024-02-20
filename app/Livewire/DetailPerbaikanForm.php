@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\DetailPerbaikan;
+use App\Models\Perbaikan;
+use App\Models\Transaksi;
 use LivewireUI\Modal\ModalComponent;
 use Masmerise\Toaster\Toastable;
 
@@ -62,6 +64,7 @@ class DetailPerbaikanForm extends ModalComponent
             }
         }
 
+        $this->updateTotalBiayaInTransaksi();
 
         $this->success($this->detailPerbaikan->wasRecentlyCreated ? 'Detail Perbaikan berhasil ditambahkan' : 'Detail Perbaikan berhasil diubah');
         $this->closeModalWithEvents([
@@ -90,5 +93,21 @@ class DetailPerbaikanForm extends ModalComponent
         if ($perbaikan_id) {
             $this->perbaikan_id = $perbaikan_id;
         }
+    }
+
+    protected function updateTotalBiayaInTransaksi()
+    {
+        $perbaikan = Perbaikan::find($this->perbaikan_id);
+        $totalBiaya = $perbaikan->detailPerbaikan()->sum('biaya');
+
+        // Mencari Transaksi yang terkait dengan Perbaikan ini
+        $transaksi = Transaksi::where('perbaikan_id', $this->perbaikan_id)->first();
+
+        // Jika Transaksi ditemukan, perbarui total_biayanya
+        if ($transaksi) {
+            $transaksi->update(['total_biaya' => $totalBiaya]);
+            // Opsional: Tambahkan logika tambahan jika diperlukan, misalnya memicu event atau log
+        }
+        // Jika tidak ada Transaksi yang terkait, fungsi tidak melakukan apa-apa
     }
 }

@@ -17,8 +17,6 @@ class Transaksi extends Model
     protected $fillable = [
         'user_id',
         'perbaikan_id',
-        'bookingservice_id',
-        'biaya',
         'jumlah',
         'total_biaya',
 
@@ -35,11 +33,5 @@ class Transaksi extends Model
     {
         // Relasi one-to-many dengan menggunakan atribut hasOne yang akan di hubungkan dengan model Perbaikan
         return $this->belongsTo(Perbaikan::class);
-    }
-    // Relasi one-to-many dengan model BookingService
-    public function bookingservice()
-    {
-        // Relasi one-to-many dengan menggunakan atribut hasOne yang akan di hubungkan dengan model BookingService
-        return $this->belongsTo(BookingService::class, 'bookingservice_id');
     }
 }
