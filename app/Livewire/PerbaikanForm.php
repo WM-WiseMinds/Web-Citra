@@ -3,9 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\BookingService;
+use App\Models\DetailPerbaikan;
 use App\Models\Perbaikan;
 use App\Models\Transaksi;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 use Masmerise\Toaster\Toastable;
@@ -53,8 +55,10 @@ class PerbaikanForm extends ModalComponent
     public function store()
     {
         $validatedData = $this->validate();
+        $persetujuanSebelumnya = $this->perbaikan->persetujuan;
         $this->perbaikan->fill($validatedData);
         $this->perbaikan->save();
+
 
         $this->success($this->perbaikan->wasRecentlyCreated ? 'Perbaikan berhasil ditambahkan' : 'Perbaikan berhasil diubah');
 
@@ -65,13 +69,22 @@ class PerbaikanForm extends ModalComponent
 
         $this->resetCreateForm();
 
-        // Hapus data booking service yang sesuai dari tabelnya
         if ($this->perbaikan->wasRecentlyCreated) {
             $bookingService = BookingService::find($this->perbaikan->bookingservice_id);
             if ($bookingService) {
                 $bookingService->status = 'Diproses';
                 $bookingService->save();
             }
+        }
+
+        // Membuat atau memperbarui transaksi ketika persetujuan adalah 'Perbaiki'
+        if ($this->updatingPersetujuanOnly && $this->perbaikan->persetujuan === 'Perbaiki') {
+            $this->createOrUpdateTransaksi();
+        }
+
+        // Menghapus transaksi ketika persetujuan berubah dari 'Perbaiki' ke status lain
+        if ($this->updatingPersetujuanOnly && $persetujuanSebelumnya === 'Perbaiki' && $this->perbaikan->persetujuan !== 'Perbaiki') {
+            $this->deleteTransaksi();
         }
     }
 
@@ -97,7 +110,7 @@ class PerbaikanForm extends ModalComponent
             $this->persetujuan = $this->perbaikan->persetujuan;
             $this->keterangan = $this->perbaikan->keterangan;
 
-            // Ambil detail BookingService jika bookingservice_id tersedia
+
             if ($this->bookingservice_id) {
                 $bookingService = BookingService::find($this->bookingservice_id);
                 if ($bookingService) {
@@ -106,7 +119,7 @@ class PerbaikanForm extends ModalComponent
                 }
             }
         } else if ($this->bookingservice_id) {
-            // Ini untuk kasus di mana Perbaikan baru sedang dibuat dan bookingservice_id sudah diberikan
+
             $this->getDetailBookingService($this->bookingservice_id);
         }
     }
@@ -116,5 +129,46 @@ class PerbaikanForm extends ModalComponent
         $booking_service = BookingService::find($bookingservice_id);
         $this->jenis_barang = $booking_service->jenis_barang;
         $this->kerusakan = $booking_service->kerusakan;
+    }
+
+    // protected function hitungJumlahDetailPerbaikan($perbaikanId)
+    // {
+    //     $jumlah = DetailPerbaikan::where('perbaikan_id', $perbaikanId)->count();
+    //     return $jumlah;
+    // }
+
+    // protected function hitungTotalBiaya($perbaikanId)
+    // {
+    //     $perbaikan = Perbaikan::find($perbaikanId);
+    //     $totalBiaya = 0;
+
+    //     foreach ($perbaikan->detailPerbaikan as $detail) {
+    //         $totalBiaya += $detail->biaya;
+    //     }
+
+    //     return $totalBiaya;
+    // }
+
+    protected function createOrUpdateTransaksi()
+    {
+        $jumlahDetailPerbaikan = DetailPerbaikan::where('perbaikan_id', $this->perbaikan->id)->count();
+        $totalBiaya = DetailPerbaikan::where('perbaikan_id', $this->perbaikan->id)->sum('biaya');
+
+        $transaksi = Transaksi::updateOrCreate(
+            ['perbaikan_id' => $this->perbaikan->id],
+            ['jumlah' => $jumlahDetailPerbaikan, 'total_biaya' => $totalBiaya]
+        );
+
+        if ($transaksi->wasRecentlyCreated) {
+            $this->success('Transaksi berhasil dibuat.');
+        } else {
+            $this->success('Transaksi berhasil diperbarui.');
+        }
+    }
+
+    protected function deleteTransaksi()
+    {
+        Transaksi::where('perbaikan_id', $this->perbaikan->id)->delete();
+        $this->success('Transaksi terkait berhasil dihapus.');
     }
 }

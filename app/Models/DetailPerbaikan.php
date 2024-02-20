@@ -25,4 +25,17 @@ class DetailPerbaikan extends Model
         // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah Perbaikan maka dari itu di hubungkan dengan model Perbaikan
         return $this->belongsTo(Perbaikan::class);
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($detailPerbaikan) {
+            // Panggil fungsi untuk memperbarui transaksi terkait
+            $detailPerbaikan->perbaikan->updateTransaksi();
+        });
+
+        static::deleted(function ($detailPerbaikan) {
+            // Panggil fungsi untuk memperbarui transaksi terkait
+            $detailPerbaikan->perbaikan->updateTransaksi();
+        });
+    }
 }

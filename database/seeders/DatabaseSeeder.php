@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([BookingServiceSeeder::class]);
         $this->call([PerbaikanSeeder::class]);
         $this->call([DetailPerbaikanSeeder::class]);
-        $this->call([TransaksiSeeder::class]);
-        $this->call([ReviewSeeder::class]);
+        // $this->call([TransaksiSeeder::class]);
+        // $this->call([ReviewSeeder::class]);
     }
 }

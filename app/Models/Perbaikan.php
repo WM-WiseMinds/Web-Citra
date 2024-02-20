@@ -53,10 +53,18 @@ class Perbaikan extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function getDetailPerbaikanSummaryAttribute()
+    public function updateTransaksi()
     {
-        return $this->detailperbaikan->map(function ($detail) {
-            return "Status: {$detail->status}, <br> Biaya: {$detail->biaya}";
-        })->join('; <br>');
+        $jumlah = $this->detailPerbaikan()->count();
+        $totalBiaya = $this->detailPerbaikan()->sum('biaya');
+
+        // Perbarui transaksi terkait
+        $transaksi = Transaksi::where('perbaikan_id', $this->id)->first();
+        if ($transaksi) {
+            $transaksi->update([
+                'jumlah' => $jumlah,
+                'total_biaya' => $totalBiaya,
+            ]);
+        }
     }
 }

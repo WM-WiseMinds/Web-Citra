@@ -15,19 +15,11 @@ class Transaksi extends Model
 
     //untuk menyimpan data atribut tabel dari tabel transaksis
     protected $fillable = [
-        'user_id',
         'perbaikan_id',
         'jumlah',
         'total_biaya',
-
     ];
 
-    // Relasi one-to-many dengan model User
-    public function user()
-    {
-        // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang di tuju adalah user maka dari itu di hubungkan dengan model User
-        return $this->belongsTo(User::class, 'user_id');
-    }
     // Relasi one-to-many dengan model Perbaikan
     public function perbaikan()
     {

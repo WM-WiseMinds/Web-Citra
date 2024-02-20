@@ -20,7 +20,7 @@ class PerbaikanFactory extends Factory
             'user_id' => $this->faker->randomNumber('1', '5'),
             'bookingservice_id' => $this->faker->randomNumber('1', '4'),
             'keterangan' => $this->faker->word,
-            'persetujuan' => $this->faker->randomElement(['Perbaiki', 'Tidak', 'Menunggu'])
+            'persetujuan' => $this->faker->randomElement(['Menunggu'])
         ];
     }
 }

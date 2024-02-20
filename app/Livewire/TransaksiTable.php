@@ -48,13 +48,13 @@ final class TransaksiTable extends PowerGridComponent
     public function datasource(): Builder
     {
 
-        return Transaksi::query()->with(['user', 'perbaikan']);
+        return Transaksi::query()->with(['perbaikan']);
     }
 
     public function relationSearch(): array
     {
         return [
-            'user' => ['name'],
+            'perbaikan.user' => ['name'],
         ];
     }
 
@@ -62,7 +62,7 @@ final class TransaksiTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('user.name')
+            ->add('perbaikan.bookingservice.user.name')
             ->add('jumlah')
             ->add('total_biaya')
             ->add('created_at_formatted', fn ($row) => Carbon::parse($row->created_at)->format('d-m-Y'));
@@ -74,7 +74,7 @@ final class TransaksiTable extends PowerGridComponent
             Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
-            Column::make('Name', 'user.name')
+            Column::make('Name', 'perbaikan.bookingservice.user.name')
                 ->sortable()
                 ->searchable(),
 
@@ -96,8 +96,8 @@ final class TransaksiTable extends PowerGridComponent
     {
         return [
             Filter::select('user.name', 'user_id')
-                ->dataSource(Transaksi::with('user')->get()->map(function ($transaksi) {
-                    return ['id' => $transaksi->user_id, 'name' => $transaksi->user->name];
+                ->dataSource(Transaksi::with('perbaikan.bookingservice.user')->get()->map(function ($transaksi) {
+                    return ['id' => $transaksi->perbaikan->user_id, 'name' => $transaksi->perbaikan->user->name];
                 })->unique('id'))
                 ->optionValue('id')
                 ->optionLabel('name'),

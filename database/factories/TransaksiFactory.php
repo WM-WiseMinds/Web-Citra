@@ -17,7 +17,6 @@ class TransaksiFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomNumber('1', '5'),
             'perbaikan_id' => $this->faker->randomNumber('1', '10'),
             'jumlah' => $this->faker->randomNumber('1', '8'),
             'total_biaya' => $this->faker->randomNumber('5',),
