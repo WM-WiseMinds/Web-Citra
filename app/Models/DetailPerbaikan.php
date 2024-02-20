@@ -11,23 +11,24 @@ class DetailPerbaikan extends Model
     use HasFactory;
 
     // Nama tabel yang sesuai dengan model
-    protected $table = 'detailperbaikan'; 
-    
+    protected $table = 'detailperbaikan';
+
     //untuk menyimpan data atribut tabel dari tabel detailperbaikan
     protected $fillable = [
         'perbaikan_id',
-        'biaya', 
+        'jenis_perbaikan',
+        'biaya',
         'status',
     ];
     //untuk menghubungkan model detailperbaikan dengan model user melalui relasi one-to-many
     public function perbaikan()
     {
         // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah Perbaikan maka dari itu di hubungkan dengan model Perbaikan
-        return $this->belongsTo(Perbaikan::class); 
+        return $this->belongsTo(Perbaikan::class);
     }
     public function transaksi()
     {
         // Relasi one-to-many dengan menggunakan atribut belongsTo karena tabel yang akan di tuju adalah Transaksi maka dari itu di hubungkan dengan model Transaksi
-        return $this->hasOne(Transaksi::class); 
+        return $this->hasOne(Transaksi::class);
     }
 }

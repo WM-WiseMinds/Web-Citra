@@ -6,12 +6,28 @@
                 <td class="border px-4 py-2">{{ $id }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Nama User</td>
+                <td class="border px-4 py-2">{{ $row->bookingservice->user->name }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">No HP</td>
+                <td class="border px-4 py-2">{{ $row->bookingservice->user->no_hp }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Alamat</td>
+                <td class="border px-4 py-2">{{ $row->bookingservice->user->alamat }}</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Jenis Barang</td>
                 <td class="border px-4 py-2">{{ $row->bookingservice->jenis_barang }}</td>
             </tr>
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Nama</td>
-                <td class="border px-4 py-2">{{ $row->user->name}}</td>
+                <td class="border px-4 py-2 text-sm font-semibold">Kerusakan</td>
+                <td class="border px-4 py-2">{{ $row->bookingservice->kerusakan }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Tanggal Booking</td>
+                <td class="border px-4 py-2">{{ $row->bookingservice->tanggal_booking }}</td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Persetujuan</td>
@@ -20,18 +36,6 @@
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Keterangan</td>
                 <td class="border px-4 py-2">{{ $row->keterangan }}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">kerusakan</td>
-                <td class="border px-4 py-2">{{ $row->bookingservice->kerusakan }}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Biaya</td>
-                <td class="border px-4 py-2">{{ $row->biaya }}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Status</td>
-                <td class="border px-4 py-2">{{ $row->status }}</td>
             </tr>
         </tbody>
     </table>

@@ -14,16 +14,18 @@ return new class extends Migration
         // Membuat tabel 'detail_perbaikans' untuk menyimpan data detail perbaikan
         Schema::create('detailperbaikan', function (Blueprint $table) {
             // Kolom ID unik sebagai primary key untuk setiap detail perbaikan
-            $table->id(); 
+            $table->id();
             // Kolom ID perbaikan yang terkait dengan tabel 'perbaikans' dengan aksi onDelete 'cascade'
             $table->foreignId('perbaikan_id')->constrained('perbaikan')->onDelete('cascade');
+            // Kolom jenis perbaikan barang
+            $table->string('jenis_perbaikan', 50);
             // Kolom deskripsi status barang
             $table->string('status', 20);
             // Kolom biaya barang
             $table->integer('biaya');
             //kolom Timestamp otomatis untuk pembuatan dan pembaruan
-            $table->timestamps(); 
-            });
+            $table->timestamps();
+        });
     }
 
     /**

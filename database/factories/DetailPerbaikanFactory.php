@@ -17,9 +17,10 @@ class DetailPerbaikanFactory extends Factory
     public function definition(): array
     {
         return [
-            'perbaikan_id' => $this->faker->randomNumber('1','4'),
+            'perbaikan_id' => $this->faker->randomNumber('1', '4'),
+            'jenis_perbaikan' => $this->faker->word,
             'status' => $this->faker->word,
-            'biaya' => $this->faker->randomNumber('1','6'),
+            'biaya' => $this->faker->randomNumber('1', '6'),
         ];
     }
 }
