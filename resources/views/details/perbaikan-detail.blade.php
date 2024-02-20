@@ -19,14 +19,6 @@
                 <td class="border px-4 py-2">{{ $row->bookingservice->user->name }}</td>
             </tr>
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">No HP</td>
-                <td class="border px-4 py-2">{{ $row->bookingservice->user->no_hp }}</td>
-            </tr>
-            <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Alamat</td>
-                <td class="border px-4 py-2">{{ $row->bookingservice->user->alamat }}</td>
-            </tr>
-            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Jenis Barang</td>
                 <td class="border px-4 py-2">{{ $row->bookingservice->jenis_barang }}</td>
             </tr>
@@ -49,6 +41,10 @@
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Total</td>
                 <td class="border px-4 py-2">Rp {{ number_format($total, 0, ',', '.') }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Penanggung Jawab</td>
+                <td class="border px-4 py-2">{{ $row->user->name }}</td>
             </tr>
         </tbody>
     </table>
