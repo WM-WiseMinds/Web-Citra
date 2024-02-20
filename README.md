@@ -28,11 +28,11 @@ Sistem Informasi Manajemen Pelanggan Citra Elektronik Service adalah aplikasi we
 
 Melakukan cloning project di terminal
 ```bash
-git clone https://github.com/WM-WiseMinds/Web-Puja.git
+git clone https://github.com/WM-WiseMinds/Web-Citra.git
 ```
 Buka directory file
 ```bash
-cd Web-Puja
+cd Web-Citra
 ```
 Melakukan instalasi composer
 ```bash
