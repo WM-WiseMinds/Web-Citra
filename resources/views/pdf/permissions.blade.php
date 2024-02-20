@@ -1,5 +1,5 @@
 <div>
-    <h2>Permissions Table</h2>
+    <h2>Tabel Permissions</h2>
     <table style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>

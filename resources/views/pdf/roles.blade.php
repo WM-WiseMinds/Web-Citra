@@ -1,5 +1,5 @@
 <div>
-    <h2>Permissions Table</h2>
+    <h2>Tabel Roles</h2>
     <table style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
@@ -15,7 +15,7 @@
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $roles->id }}</td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">{{ $roles->name }}</td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">
-                        {{ $roles->permissions }}
+                        {{ $roles->permissions->pluck('name')->implode(', ') }}
                     </td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">
                         {{ $roles->created_at }}

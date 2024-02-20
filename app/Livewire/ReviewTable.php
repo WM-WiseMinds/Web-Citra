@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Review;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Masmerise\Toaster\Toastable;
