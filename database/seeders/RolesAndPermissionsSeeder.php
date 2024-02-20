@@ -24,12 +24,11 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'delete']);
         Permission::create(['name' => 'export']);
         Permission::create(['name' => 'booking']);
-        Permission::create(['name' => 'transaksi']);
         Permission::create(['name' => 'review']);
         Permission::create(['name' => 'konfirmasi']);
 
         $role = Role::create(['name' => 'pelanggan'])
-            ->givePermissionTo(['booking', 'transaksi', 'review', 'konfirmasi']);
+            ->givePermissionTo(['booking', 'review', 'konfirmasi']);
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo(Permission::all());
