@@ -20,6 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/gallery', function () {
+    return view('gallery');
+});
+
+Route::get('/reviews', function () {
+    $review = Review::all();
+    return view('reviews', compact('review'));
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
