@@ -59,7 +59,9 @@ final class PerbaikanTable extends PowerGridComponent
         // Cek role pengguna yang login
         if (auth()->user()->hasRole('pelanggan')) {
             // Batasi data hanya untuk booking service pengguna tersebut
-            $query->where('user_id', auth()->id());
+            $query->whereHas('bookingservice', function (Builder $query) {
+                $query->where('user_id', auth()->id());
+            });
         }
 
         return $query;
