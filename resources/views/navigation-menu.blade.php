@@ -4,7 +4,7 @@
         class="z-20 hidden w-64 overflow-y-auto bg-gradient-to-t from-orange-600 to-orange-500 dark:bg-gray-800 lg:block flex-shrink-0">
         <div class="py-4 text-center text-gray-500 dark:text-gray-400">
             <a href="{{ route('dashboard') }}" class="text-lg font-bold text-white dark:text-gray-200">
-                CITRA ELEKTRONIK SERVICE
+                CITRA ELECTRONIC SERVICE
             </a>
             <ul class="mt-6">
                 <li

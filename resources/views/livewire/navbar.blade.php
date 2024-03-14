@@ -13,7 +13,7 @@
                 <li><a href="{{ url('/reviews') }}">Reviews</a></li>
             </ul>
         </div>
-        <a class="btn btn-ghost text-xl text-white">Citra Elektronik Service</a>
+        <a class="btn btn-ghost text-xl text-white">Citra Electronic Service</a>
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1 text-white">
