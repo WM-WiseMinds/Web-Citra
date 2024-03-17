@@ -72,9 +72,10 @@ final class TransaksiTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id')
-                ->sortable()
-                ->searchable(),
+            Column::add()
+                ->index()
+                ->title('No')
+                ->visibleInExport(false),
             Column::make('Name', 'perbaikan.bookingservice.user.name')
                 ->sortable()
                 ->searchable(),

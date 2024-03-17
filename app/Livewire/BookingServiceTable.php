@@ -82,9 +82,10 @@ final class BookingServiceTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id')
-                ->sortable()
-                ->searchable(),
+            Column::add()
+                ->index()
+                ->title('No')
+                ->visibleInExport(false),
             Column::make('Nama', 'user.name')
                 ->sortable()
                 ->searchable(),

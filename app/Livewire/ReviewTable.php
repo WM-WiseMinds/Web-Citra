@@ -75,9 +75,10 @@ final class ReviewTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id')
-                ->searchable()
-                ->sortable(),
+            Column::add()
+                ->index()
+                ->title('No')
+                ->visibleInExport(false),
             Column::make('Nama Pelanggan', 'user.name')
                 ->searchable()
                 ->sortable(),
