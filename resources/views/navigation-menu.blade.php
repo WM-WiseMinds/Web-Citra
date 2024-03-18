@@ -21,7 +21,7 @@
                     </x-nav-link>
                 </li>
                 @if (auth()->user()->can('read'))
-                    <li
+                    {{-- <li
                         class="relative px-6 py-3 {{ request()->routeIs('permissions') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                         <x-nav-link href="{{ route('permissions') }}" :active="request()->routeIs('permissions')"
                             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('permissions') ? 'text-rose-400' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
@@ -47,7 +47,7 @@
 
                             <span class="ml-4">Roles</span>
                         </x-nav-link>
-                    </li>
+                    </li> --}}
                     <li
                         class="relative px-6 py-3 {{ request()->routeIs('users') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')"
@@ -154,7 +154,7 @@
                     </x-nav-link>
                 </li>
                 @if (auth()->user()->can('read'))
-                    <li
+                    {{-- <li
                         class="relative px-6 py-3 {{ request()->routeIs('permissions') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                         <x-nav-link href="{{ route('permissions') }}" :active="request()->routeIs('permissions')"
                             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('permissions') ? 'text-rose-400' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
@@ -180,7 +180,7 @@
 
                             <span class="ml-4">Roles</span>
                         </x-nav-link>
-                    </li>
+                    </li> --}}
                     <li
                         class="relative px-6 py-3 {{ request()->routeIs('users') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')"
