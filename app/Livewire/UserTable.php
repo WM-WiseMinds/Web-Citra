@@ -6,6 +6,7 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -51,10 +52,12 @@ final class UserTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return User::query()
+        $query = User::query()
+            ->select('users.*', DB::raw('ROW_NUMBER() OVER (ORDER BY users.id) as rownum'))
             ->with('roles');
-    }
 
+        return $query;
+    }
 
     public function relationSearch(): array
     {
@@ -67,6 +70,7 @@ final class UserTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
+            ->add('rownum')
             ->add('name')
             ->add('email')
             ->add('roles', function (User $user) {
@@ -79,10 +83,9 @@ final class UserTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::add()
-                ->index()
-                ->title('No')
-                ->visibleInExport(false),
+            Column::make('No', 'rownum')
+                ->sortable()
+                ->searchable(),
             Column::make('Name', 'name')
                 ->sortable()
                 ->searchable(),
