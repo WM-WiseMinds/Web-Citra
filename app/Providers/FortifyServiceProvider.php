@@ -44,7 +44,7 @@ class FortifyServiceProvider extends ServiceProvider
             }
 
             throw ValidationException::withMessages([
-                'email' => ['Kredensial yang diberikan tidak cocok dengan catatan kami.'],
+                'email' => ['Login Gagal'],
             ]);
         });
 
